@@ -2,12 +2,12 @@ import React, { ComponentProps, ReactNode } from "react";
 
 type TextInputProps = {
   label: string;
-  children: ReactNode;
+  startIcone: ReactNode;
   error?: string | undefined;
 } & ComponentProps<"input">;
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  ({ label, children, error, ...props }, ref) => {
+  ({ label, startIcone, error, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-2 mb-3">
         <label
@@ -18,12 +18,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         </label>
         <div className="relative ">
           <div className="absolute inset-y-0 start-5 flex items-center pointer-events-none">
-            {children}
+            {startIcone}
           </div>
           <input
             ref={ref}
             type="text"
-            className={`bg-[#0D1321] border-[3px] focus:outline-[3px] focus:outline-[#ffff] border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg block w-full ps-[3.5rem] p-7 ${
+            className={`bg-[#0D1321] border-[3px] focus:outline-none focus:border-[${
+              error ? "" : "#C5D86D"
+            }] border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg block w-full ps-[3.5rem] p-7 ${
               error ? "border-red-500" : ""
             }`}
             {...props}

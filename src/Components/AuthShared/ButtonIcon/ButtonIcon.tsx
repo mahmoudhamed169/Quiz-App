@@ -1,19 +1,21 @@
+import { ReactNode } from "react";
+
 interface ButtonIconProps {
-  img: string;
+  icone: ReactNode;
   text: string;
   color: string;
   onClick: () => void;
 }
 
-function ButtonIcon({ img, text, color, onClick }: ButtonIconProps) {
+function ButtonIcon({ icone, text, color, onClick }: ButtonIconProps) {
   return (
     <button
       onClick={onClick}
-      className="w-[170px] h-[120px] rounded-lg border-[5px] bg-[#333333] flex flex-col justify-center items-center"
+      className="w-[170px] h-[120px] rounded-lg border-[5px] bg-[#333333] flex flex-col justify-center items-center gap-2"
       style={{ borderColor: color }}
     >
-      <img src={img} alt="" className="m-2 w-[43px]" />
-      <p className="mt-1">{text}</p>
+      {icone}
+      <p>{text}</p>
     </button>
   );
 }
