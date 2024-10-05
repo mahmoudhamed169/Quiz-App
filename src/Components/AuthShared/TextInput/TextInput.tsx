@@ -1,23 +1,38 @@
-export default function TextInput({ children }) {
-  return (
-    <div>
-      <label
-        htmlFor="input-group-1"
-        className="block mb-2 text-sm font-medium text-[#ffff] ms-6 font-bold text-lg"
-      >
-        Registered email address
-      </label>
-      <div className="relative mb-6   ">
-        <div className="absolute inset-y-0 start-5 flex items-center  pointer-events-none ">
-          {children}
+import React, { ComponentProps, ReactNode } from "react";
+
+type TextInputProps = {
+  label: string;
+  children: ReactNode;
+  error?: string | undefined;
+} & ComponentProps<"input">;
+
+const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+  ({ label, children, error, ...props }, ref) => {
+    return (
+      <div className="flex flex-col gap-2 mb-3">
+        <label
+          htmlFor={props.id}
+          className="block  text-[#ffff] ms-6 font-bold text-lg"
+        >
+          {label}
+        </label>
+        <div className="relative ">
+          <div className="absolute inset-y-0 start-5 flex items-center pointer-events-none">
+            {children}
+          </div>
+          <input
+            ref={ref}
+            type="text"
+            className={`bg-[#0D1321] border-[3px] focus:outline-[3px] focus:outline-[#ffff] border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg block w-full ps-[3.5rem] p-7 ${
+              error ? "border-red-500" : ""
+            }`}
+            {...props}
+          />
         </div>
-        <input
-          type="text"
-          id="input-group-1"
-          className="bg-[#0D1321] border-[3px]  focus:outline-[3px]  focus:outline-[#ffff] focus:boder-none border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg  block w-full ps-[3.5rem] p-7   "
-          placeholder="Type your email"
-        />
+        {error && <p className="text-red-500 ms-6">{error}</p>}
       </div>
-    </div>
-  );
-}
+    );
+  }
+);
+
+export default TextInput;

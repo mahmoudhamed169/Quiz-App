@@ -5,7 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "../../../Components/AuthShared/TextInput/TextInput";
 import PasswordInput from "../../../Components/AuthShared/PasswordInput/PasswordInput";
 import ButtonForm from "../../../Components/AuthShared/ButtonForm/ButtonForm";
+import { useForm } from "react-hook-form";
+import emailIcone from "../../../assets/email-icone.svg";
 export default function Login() {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const navigate = useNavigate();
   const naviagteLogin = () => {
     navigate("/login");
@@ -21,7 +28,7 @@ export default function Login() {
           Continue your learning journey with QuizWiz!
         </p>
 
-        <div className="mt-10 flex w-[45%] justify-between ">
+        <div className="mt-10 flex  gap-5">
           <ButtonIcon
             img={img1}
             color={"#C5D86D"}
@@ -35,8 +42,18 @@ export default function Login() {
             onClick={navigateRegister}
           />
         </div>
-        <form className="w-[90%] mt-12">
-          <TextInput>
+        <form
+          className="w-[90%] mt-12"
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
+        >
+          <TextInput
+            label="Registered email address"
+            {...register("email", { required: "email is required" })}
+            type="email"
+            error={errors?.email?.message && String(errors.email.message)}
+          >
             <svg
               width="25"
               height="19"
@@ -51,7 +68,11 @@ export default function Login() {
             </svg>
           </TextInput>
 
-          <PasswordInput />
+          <PasswordInput
+            label="Password"
+            error={errors?.password?.message && String(errors.password.message)}
+            {...register("password", { required: "email is required" })}
+          />
 
           <div className="flex justify-between mt-10 items-center">
             <ButtonForm text={"Sign In"} />

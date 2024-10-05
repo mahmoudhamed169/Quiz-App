@@ -2,8 +2,8 @@ import React from "react";
 
 export default function ButtonForm({ text }) {
   return (
-    <button className="w-[150px] h-[50px] bg-[#F5F5F5] font-bold text-lg rounded-lg text-[#000] flex justify-center items-center ">
-      <p className="me-2">{text}</p>
+    <button className="w-[150px] h-[50px] bg-[#F5F5F5] font-bold text-lg rounded-lg text-[#000] flex justify-center items-center  gap-2">
+      <p>{text}</p>
       <svg
         width="25"
         height="25"
