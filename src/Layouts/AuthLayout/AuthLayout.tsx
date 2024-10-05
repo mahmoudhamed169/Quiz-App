@@ -8,14 +8,14 @@ export default function AuthLayout() {
 
   return (
     <>
-      <div className="h-screen bg-[#0D1321] flex">
-        <div className="text-white w-1/2 m-10">
+      <div className="h-auto bg-[#0D1321] flex">
+        <div className="text-white w-1/2 m-10 ">
           <div className="w-[200px]">
             <img src={logo} alt="logo" className="w-full" />
           </div>
           <Outlet />
         </div>
-        <div className="text-white m-8 bg-[#FFEDDF] w-1/2 rounded-lg flex justify-center">
+        <div className="text-white m-8 bg-[#FFEDDF] w-1/2 rounded-lg flex justify-center h-[39rem]">
           <img src={img} alt="" className="w-[90%]" />
         </div>
       </div>
