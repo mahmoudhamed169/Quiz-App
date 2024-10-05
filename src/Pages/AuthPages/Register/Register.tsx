@@ -27,7 +27,7 @@ export default function Register() {
   return (
     <>
       <div className="h-auto bg-[#0D1321]">
-        <p className="font-bold text-2xl text-[#C5D86D] p-1">
+        <p className="font-bold text-2xl text-[#C5D86D] pt-4">
           Create your account and start using QuizWiz!
         </p>
 
@@ -80,8 +80,6 @@ export default function Register() {
             error={errors?.email?.message && String(errors.email.message)}
           />
           <SelectOption
-            
-            startIcone={<EmailIcone />}
             label="Role"
             {...register("Role", { required: "Role is required" })}
             error={errors?.Role?.message && String(errors.Role.message)}

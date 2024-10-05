@@ -24,12 +24,12 @@ export default function Login() {
 
   return (
     <>
-      <div className="mt-[3.2rem]">
+      <div className="">
         <p className="font-bold text-2xl text-[#C5D86D] pt-4">
           Continue your learning journey with QuizWiz!
         </p>
 
-        <div className="mt-10 flex  gap-5">
+        <div className="mt-5 flex  gap-5">
           <ButtonIcon
             icone={<UserTie color="#C5D86D" />}
             color={"#C5D86D"}
