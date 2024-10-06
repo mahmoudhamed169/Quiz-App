@@ -1,11 +1,8 @@
-import { UserPlus } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ButtonForm from "../../../Components/AuthShared/ButtonForm/ButtonForm";
-import ButtonIcon from "../../../Components/AuthShared/ButtonIcon/ButtonIcon";
 import PasswordInput from "../../../Components/AuthShared/PasswordInput/PasswordInput";
 import TextInput from "../../../Components/AuthShared/TextInput/TextInput";
 import EmailIcone from "../../../Icones/EmailIcone";
-import UserTie from "../../../Icones/UserTie";
 import { SubmitHandler, useForm } from "react-hook-form";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -15,8 +12,9 @@ import PasswordKeyIcone from "../../../Icones/PasswordKeyIcone";
 export default function ResetPassword() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
+
     watch,
   } = useForm();
   const { state } = useLocation();
@@ -89,7 +87,7 @@ export default function ResetPassword() {
           })}
         />
         <div className="flex justify-between mt-10 items-center">
-          <ButtonForm text={"Reset"} />
+          <ButtonForm text={"Reset"} isSubmitting={isSubmitting} />
         </div>
       </form>
     </div>

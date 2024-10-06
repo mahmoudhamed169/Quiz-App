@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 export default function ForgetPassword() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm();
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function ForgetPassword() {
         />
 
         <div className="flex justify-between mt-10 items-center">
-          <ButtonForm text={"Send email"} />
+          <ButtonForm text={"Send email"} isSubmitting={isSubmitting} />
         </div>
       </form>
     </div>
