@@ -8,15 +8,17 @@ import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
 import PasswordKeyIcone from "../../../Icones/PasswordKeyIcone";
+import { useEffect } from "react";
 
 export default function ResetPassword() {
   const {
     register,
     formState: { errors, isSubmitting },
     handleSubmit,
-
+    setFocus,
     watch,
   } = useForm();
+
   const { state } = useLocation();
   const navigate = useNavigate();
   const onSumbit: SubmitHandler = async (data: {
@@ -44,6 +46,12 @@ export default function ResetPassword() {
       });
     }
   };
+  useEffect(() => {
+    if (state?.data?.email) {
+      return setFocus("otp");
+    }
+    setFocus("email");
+  }, []);
   return (
     <div className="">
       <p className="font-bold text-2xl text-[#C5D86D] pt-4">Reset Password</p>
