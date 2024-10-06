@@ -21,10 +21,10 @@ const SelectOption = React.forwardRef<HTMLSelectElement, SelectOptionProps>(
 
         <div className="relative">
           <select
-            className={`  text-lg ps-[3.7rem] block w-full appearance-none border-[3px] focus:outline-none focus:border-[${
-              error ? "" : "#C5D86D"
+            className={` appearance-none focus:ring-0   text-lg ps-[3.7rem] block w-full  border-[3px] focus:outline-none focus:border-[${
+              error ? "#C5D86D" : "#C5D86D"
             }] bg-[#0D1321] rounded-lg py-3 pl-10 pr-10 text-white cursor-pointer ${
-              error ? "border-red-500" : "white"
+              error ? "border-red-500" : "border-white"
             }`}
             ref={ref}
             {...props}
@@ -40,9 +40,9 @@ const SelectOption = React.forwardRef<HTMLSelectElement, SelectOptionProps>(
             <ListFilter size={28} />
           </div>
 
-          <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+          {/* <div className="absolute inset-y-0 right-5 flex items-center pointer-events-none">
             <CircleChevronDown size={28} />
-          </div>
+          </div> */}
         </div>
 
         {error && <p className="text-red-500 ms-6">{error}</p>}
