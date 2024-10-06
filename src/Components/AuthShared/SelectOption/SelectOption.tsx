@@ -1,5 +1,5 @@
 import { CircleChevronDown, ListFilter } from "lucide-react";
-import React, { ComponentProps, ReactNode } from "react";
+import React, { ComponentProps } from "react";
 
 type SelectOptionProps = {
   label: string;

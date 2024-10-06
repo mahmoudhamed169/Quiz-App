@@ -9,7 +9,7 @@ type TextInputProps = {
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ({ label, startIcone, error, ...props }, ref) => {
     return (
-      <div className="flex flex-col gap-2 mb-3">
+      <div className="flex flex-col gap-2 mb-3 w-full">
         <label
           htmlFor={props.id}
           className="block  text-[#ffff] ms-6 font-bold text-lg"
