@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ButtonForm from "../../../Components/AuthShared/ButtonForm/ButtonForm";
 import TextInput from "../../../Components/AuthShared/TextInput/TextInput";
 import EmailIcone from "../../../Icones/EmailIcone";
@@ -9,20 +9,18 @@ export default function ForgetPassword() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const onSumbit: SubmitHandler = async (data) => {
+    console.log(data);
+  };
   return (
     <div className="mt-[3.2rem]">
-      <p className="font-bold text-2xl text-[#C5D86D] pt-4">
-        Continue your learning journey with QuizWiz!
-      </p>
+      <p className="font-bold text-2xl text-[#C5D86D] pt-4">Forget password</p>
 
-      <form
-        className="w-[90%] mt-12"
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
-        })}>
+      <form className="lg:w-[90%] mt-12" onSubmit={handleSubmit(onSumbit)}>
         <TextInput
           startIcone={<EmailIcone />}
-          label="Registered email address"
+          label="ُEmail address"
           placeholder="Type your email"
           {...register("email", { required: "email is required" })}
           type="email"
