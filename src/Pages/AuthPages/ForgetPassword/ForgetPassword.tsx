@@ -3,7 +3,9 @@ import ButtonForm from "../../../Components/AuthShared/ButtonForm/ButtonForm";
 import TextInput from "../../../Components/AuthShared/TextInput/TextInput";
 import EmailIcone from "../../../Icones/EmailIcone";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
+import { useNavigate } from "react-router-dom";
 
 export default function ForgetPassword() {
   const {
@@ -11,13 +13,26 @@ export default function ForgetPassword() {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const onSumbit: SubmitHandler = async (data) => {
+  const navigate = useNavigate();
+  const onSumbit: SubmitHandler = async (data: { email: string }) => {
     const toastId = toast.loading("Processing...");
-    console.log(data);
+
     try {
-      const response = await axios.post(AU);
-    } catch (error) {}
+      const response = await axios.post(
+        AUTHENTICATION_URLS.forgetPassword,
+        data
+      );
+      toast.success(response.data.message, {
+        id: toastId,
+      });
+
+      navigate("/reset-password", { state: { data } });
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      toast.error(error.response.data.message, {
+        id: toastId,
+      });
+    }
   };
   return (
     <div className="mt-[3.2rem]">
