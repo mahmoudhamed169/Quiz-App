@@ -28,3 +28,12 @@ export interface RegisterRequest {
 export interface RegisterResponse {
   message: string;
 }
+
+export interface ChangePasswordReguest {
+  password: string;
+  password_new: string;
+}
+
+export interface ChangePasswordResponse {
+  message: string;
+}

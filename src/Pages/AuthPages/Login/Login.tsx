@@ -34,8 +34,10 @@ export default function Login() {
         AUTHENTICATION_URLS.login,
         data
       );
-      console.log(response);
+      const { accessToken } = response.data.data;
 
+      localStorage.setItem("userToken", accessToken);
+      navigate("/dashboard");
       toast.success("Login Successfully", {
         id: toastId,
       });
@@ -76,7 +78,7 @@ export default function Login() {
             startIcone={<EmailIcone />}
             label="Registered email address"
             placeholder="Type your email"
-            {...register("email", { required: "email is required" })}
+            {...register("email", { required: "Email is required" })}
             type="email"
             error={errors?.email?.message && String(errors.email.message)}
           />
@@ -84,7 +86,7 @@ export default function Login() {
           <PasswordInput
             label="Password"
             error={errors?.password?.message && String(errors.password.message)}
-            {...register("password", { required: "email is required" })}
+            {...register("password", { required: "Password is required" })}
           />
 
           <div className="flex  justify-between mt-10 items-center">
