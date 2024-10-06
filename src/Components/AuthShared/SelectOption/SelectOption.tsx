@@ -32,7 +32,7 @@ const SelectOption = React.forwardRef<HTMLSelectElement, SelectOptionProps>(
             <option value="" selected disabled>
               Choose your role
             </option>
-            <option value="Instractor">Instractor</option>
+            <option value="Instructor">Instractor</option>
             <option value="Student">Student</option>
           </select>
 

@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import ButtonIcon from "../../../Components/AuthShared/ButtonIcon/ButtonIcon";
 import UserPlus from "../../../Icones/UserPlus";
 import UserTie from "../../../Icones/UserTie";
@@ -9,12 +9,22 @@ import PasswordInput from "../../../Components/AuthShared/PasswordInput/Password
 import ButtonForm from "../../../Components/AuthShared/ButtonForm/ButtonForm";
 import NameIcon from "../../../Icones/NameIcon";
 import SelectOption from "../../../Components/AuthShared/SelectOption/SelectOption";
+import { useEffect } from "react";
+import { PasswordValidation } from "../../../Validation/Validation";
+import {
+  RegisterRequest,
+  RegisterResponse,
+} from "../../../InterFaces/Interfaces";
+import toast from "react-hot-toast";
+import { AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
+import axios, { AxiosError } from "axios";
 
 export default function Register() {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
+    setFocus,
   } = useForm();
 
   const navigate = useNavigate();
@@ -23,6 +33,29 @@ export default function Register() {
   };
   const navigateRegister = () => {
     navigate("/register");
+  };
+  useEffect(() => {
+    setFocus("first_name");
+  }, []);
+  const onSubmit: SubmitHandler<RegisterRequest> = async (data) => {
+    const toastId = toast.loading("Processing...");
+    try {
+      const response = await axios.post<RegisterResponse>(
+        AUTHENTICATION_URLS.regitser,
+        data
+      );
+      console.log(response);
+
+      toast.success("Register Successfully", {
+        id: toastId,
+      });
+      navigate("/login");
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      toast.error(axiosError.response?.data?.message || "An error occurred", {
+        id: toastId,
+      });
+    }
   };
   return (
     <>
@@ -46,28 +79,29 @@ export default function Register() {
           />
         </div>
 
-        <form
-          className="w-[90%] mt-8"
-          onSubmit={handleSubmit((data) => {
-            console.log(data);
-          })}
-        >
+        <form className="w-[90%] mt-8" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-4 ">
             <TextInput
               startIcone={<NameIcon />}
               label="Your first name"
-              placeholder="Type your email"
-              {...register("email", { required: "email is required" })}
-              type="email"
-              error={errors?.email?.message && String(errors.email.message)}
+              placeholder="Type your first name"
+              {...register("first_name", {
+                required: "first name is required",
+              })}
+              type="text"
+              error={
+                errors?.first_name?.message && String(errors.first_name.message)
+              }
             />
             <TextInput
               startIcone={<NameIcon />}
               label="Your last name"
-              placeholder="Type your email"
-              {...register("email", { required: "email is required" })}
-              type="email"
-              error={errors?.email?.message && String(errors.email.message)}
+              placeholder="Type your last name"
+              {...register("last_name", { required: "last name is required" })}
+              type="text"
+              error={
+                errors?.last_name?.message && String(errors.last_name.message)
+              }
             />
           </div>
 
@@ -81,18 +115,18 @@ export default function Register() {
           />
           <SelectOption
             label="Role"
-            {...register("Role", { required: "Role is required" })}
-            error={errors?.Role?.message && String(errors.Role.message)}
+            {...register("role", { required: "Role is required" })}
+            error={errors?.role?.message && String(errors.role.message)}
           />
 
           <PasswordInput
             label="Password"
             error={errors?.password?.message && String(errors.password.message)}
-            {...register("password", { required: "password is required" })}
+            {...register("password", PasswordValidation(8))}
           />
 
           <div className="flex justify-between mt-10 items-center">
-            <ButtonForm text={"Sign In"} />
+            <ButtonForm text={"Sign In"} isSubmitting={isSubmitting} />
             <p className="font-semibold text-lg">
               Forgot password?{" "}
               <Link
