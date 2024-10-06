@@ -44,11 +44,10 @@ export default function Login() {
           />
         </div>
         <form
-          className="w-[90%] mt-12"
+          className="lg:w-[90%] mt-12"
           onSubmit={handleSubmit((data) => {
             console.log(data);
-          })}
-        >
+          })}>
           <TextInput
             startIcone={<EmailIcone />}
             label="Registered email address"
@@ -70,8 +69,7 @@ export default function Login() {
               Forgot password?{" "}
               <Link
                 to={"/forget-password"}
-                className="text-[#C5D86D] underline"
-              >
+                className="text-[#C5D86D] underline">
                 click here
               </Link>
             </p>
