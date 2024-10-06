@@ -20,7 +20,7 @@ function App() {
         { index: true, element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "rest-password", element: <ResetPassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
         { path: "forget-password", element: <ForgetPassword /> },
       ],
     },
