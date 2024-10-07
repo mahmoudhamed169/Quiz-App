@@ -37,3 +37,31 @@ export interface ChangePasswordReguest {
 export interface ChangePasswordResponse {
   message: string;
 }
+
+  export interface Question {
+    A: string;
+    B: string;
+    C: string;
+    D: string;
+    _id: string; 
+}
+
+export interface Quiz {
+  _id: string;
+  code: string;
+  title: string;
+  description: string;
+  status: string;
+  instructor: string;
+  group: string;
+  questions_number: number;
+  questions: Question[];
+  schadule: string; 
+  duration: number;
+  score_per_question: number;
+  type: string; 
+  difficulty: string; 
+  updatedAt: string;
+  createdAt: string;
+  __v: number;}
+
