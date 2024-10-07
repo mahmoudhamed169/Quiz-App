@@ -6,7 +6,7 @@ export default function Home() {
     <div>
       {/* Welcome */}
       {/* <ChangePasswordModel /> */}
-      <UpcomingQuiz/>
+      <UpcomingQuiz />
     </div>
   );
 }

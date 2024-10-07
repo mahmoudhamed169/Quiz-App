@@ -13,7 +13,11 @@ import toast from "react-hot-toast";
 import { LoginRequest, LoginResponse } from "../../../InterFaces/Interfaces";
 import { AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "./store";
+import { setUserInfo } from "../../../slices/userInfoSlice";
 export default function Login() {
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors, isSubmitting },
@@ -38,6 +42,8 @@ export default function Login() {
 
       localStorage.setItem("userToken", accessToken);
       navigate("/dashboard");
+
+      dispatch(setUserInfo(response.data.data.profile));
       toast.success("Login Successfully", {
         id: toastId,
       });
@@ -95,8 +101,7 @@ export default function Login() {
               Forgot password?{" "}
               <Link
                 to={"/forget-password"}
-                className="text-[#C5D86D] underline"
-              >
+                className="text-[#C5D86D] underline">
                 click here
               </Link>
             </p>

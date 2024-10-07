@@ -55,8 +55,7 @@ export default function ChangePasswordModal() {
         show={openModal}
         size="3xl"
         onClose={() => setOpenModal(false)}
-        popup
-      >
+        popup>
         <Modal.Header className="bg-[#0D1321]" />
         <Modal.Body className="bg-[#0D1321]">
           <div>
@@ -68,8 +67,7 @@ export default function ChangePasswordModal() {
             </p>
             <form
               className="my-7 flex flex-col gap-3"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+              onSubmit={handleSubmit(onSubmit)}>
               <PasswordInput
                 label="Password"
                 error={
