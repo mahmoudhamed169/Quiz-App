@@ -6,10 +6,13 @@ import { Student } from "../../../InterFaces/Interfaces";
 import { apiClient } from "../../../Apis/EndPoints";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import Skeleton from "react-loading-skeleton";
+import StudentCardSkeleton from "./StudentCardSkeleton";
 
 export default function TopFiveStudents() {
   const [studenet, setStudent] = useState<Student[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const arr = [1, 2, 3, 4, 5];
 
   const getStudenet = async () => {
     setLoading(true);
@@ -31,22 +34,32 @@ export default function TopFiveStudents() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-4 min-h-[607px]">
-        <div className="flex justify-between items-center">
-          <h6 className="text-xl font-bold">Top 5 Students </h6>
-          <Link
-            to={"/dashboard/home"}
-            className="flex gap-1 items-center font-normal text-xs"
-          >
-            All Students
-            <MoveRight color="#C5D86D" height={"30px"} width={"18.31px"} />
-          </Link>
-        </div>
+      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-4 lg:min-h-[607px]">
+        {!loading ? (
+          <div className="flex justify-between items-center">
+            <h6 className="text-xl font-medium">Top 5 Students </h6>
+            <Link
+              to={"/dashboard/home"}
+              className="flex gap-1 items-center font-normal text-xs"
+            >
+              All Students
+              <MoveRight color="#C5D86D" height={"30px"} width={"18.31px"} />
+            </Link>
+          </div>
+        ) : (
+          <div className="flex justify-between items-center">
+            <Skeleton count={1} height={24} width={200} />
+            <Skeleton count={1} height={18} width={100} />
+          </div>
+        )}
+
         <>
-          {studenet &&
-            studenet.map((student, index) => (
-              <StudentCard student={student} index={index} key={index} />
-            ))}
+          {loading
+            ? arr.map((item, index) => <StudentCardSkeleton />)
+            : studenet &&
+              studenet.map((student, index) => (
+                <StudentCard student={student} index={index} key={index} />
+              ))}
         </>
       </div>
     </>

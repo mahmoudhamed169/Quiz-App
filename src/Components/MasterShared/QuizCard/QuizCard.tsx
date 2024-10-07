@@ -12,8 +12,8 @@ interface IProps {
 
 export default function QuizCard({ quiz, index }: IProps) {
   console.log(index);
-  
-  function formatDateTime(dateString:string) {
+
+  function formatDateTime(dateString: string) {
     const date = new Date(dateString);
 
     const formattedDate = `${date.getDate().toString().padStart(2, "0")} / ${(
@@ -36,15 +36,13 @@ export default function QuizCard({ quiz, index }: IProps) {
     <>
       <div className="w-full mt-5">
         <div className="flex h-[120px] border-[1px]  border-gray-300 rounded-[10px] ">
-          <div className="w-[120px] h-full rounded-[10px]  bg-[#FFEDDF] p-2">
-
-
-            <img className="w-full h-full" src={index %2 ==0 ? quizz1 : quizz2} />
-
-
-
+          <div className="w-[120px] h-full rounded-[10px]  bg-[#FFEDDF] flex-shrink-0 p-4">
+            <img
+              className="w-full h-full object-cover"
+              src={index % 2 == 0 ? quizz1 : quizz2}
+            />
           </div>
-          <div className="mt-6 px-3 min-w-[400px]">
+          <div className="mt-6 px-3 w-full ">
             <h6 className="text-lg font-bold">{quiz.title}</h6>
             <p className="font-normal text-xs">
               {formatDateTime(quiz.schadule)}
