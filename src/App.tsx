@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import "flowbite";
+
 import AuthLayout from "./Layouts/AuthLayout/AuthLayout";
 import NotFound from "./Pages/NotFound/NotFound";
 import Login from "./Pages/AuthPages/Login/Login";
@@ -9,6 +11,7 @@ import ForgetPassword from "./Pages/AuthPages/ForgetPassword/ForgetPassword";
 import MasterLayout from "./Layouts/MasterLayout/MasterLayout";
 import UserLayout from "./Layouts/UserLayout/UserLayout";
 import { Toaster } from "react-hot-toast";
+import Home from "./Pages/MasterPages/Home/Home";
 
 function App() {
   const routes = createBrowserRouter([
@@ -20,7 +23,7 @@ function App() {
         { index: true, element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "rest-password", element: <ResetPassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
         { path: "forget-password", element: <ForgetPassword /> },
       ],
     },
@@ -28,7 +31,7 @@ function App() {
       path: "dashboard",
       element: <MasterLayout />,
       errorElement: <NotFound />,
-      children: [{}],
+      children: [{ index: true, element: <Home /> }],
     },
     {
       path: "student",

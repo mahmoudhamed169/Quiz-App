@@ -8,15 +8,22 @@ export default function AuthLayout() {
 
   return (
     <>
-      <div className="h-screen bg-[#0D1321] flex">
-        <div className="text-white w-1/2 m-10">
-          <div className="w-[200px]">
+      <div className="min-h-screen max-h-full bg-[#0D1321] flex flex-col md:flex-row">
+        <div className="text-white md:w-1/2 m-10 flex flex-col justify-center items-center md:items-start">
+          <div className="w-[200px] mb-10">
             <img src={logo} alt="logo" className="w-full" />
           </div>
-          <Outlet />
+          <div className="lg:w-[90%] w-full flex-grow">
+            <Outlet />
+          </div>
         </div>
-        <div className="text-white m-8 bg-[#FFEDDF] w-1/2 rounded-lg flex justify-center">
-          <img src={img} alt="" className="w-[90%]" />
+
+        <div className="hidden lg:flex text-white bg-[#FFEDDF] lg:w-1/2 rounded-lg justify-center items-center p-5 lg:fixed lg:right-0 lg:top-0 lg:bottom-0 lg:m-10">
+          <img
+            src={img}
+            alt="Auth illustration"
+            className="w-[80%] object-contain"
+          />
         </div>
       </div>
     </>

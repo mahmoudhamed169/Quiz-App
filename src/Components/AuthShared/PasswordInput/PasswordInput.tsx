@@ -16,11 +16,10 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
     };
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 mb-3">
         <label
           htmlFor={props.id || "password-input"}
-          className="block  text-[#ffff] ms-6 font-bold text-lg"
-        >
+          className="block  text-[#ffff] ms-6 font-bold text-lg">
           {label}
         </label>
         <div className="relative  flex items-center">
@@ -31,7 +30,9 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
             ref={ref}
             type={showPassword ? "text" : "password"}
             id={props.id || "password-input"}
-            className={`bg-[#0D1321] border-[3px] focus:outline-none focus:border-[#C5D86D] border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg block w-full ps-[3.5rem] p-7 ${
+            className={` focus:ring-0 bg-[#0D1321] border-[3px] focus:outline-none focus:border-[${
+              error ? "#C5D86D" : "#C5D86D"
+            }] border-[#fff] text-[#ffff] text-lg h-[50px] rounded-lg block w-full ps-[3.5rem] p-7 ${
               error ? "border-red-500" : ""
             }`}
             {...props}
@@ -40,8 +41,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="absolute end-5 text-white"
-          >
+            className="absolute end-5 text-white">
             {showPassword ? <EyeOff size={30} /> : <Eye size={30} />}
           </button>
         </div>
