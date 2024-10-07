@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Avatar, Button, Dropdown, Modal, Navbar } from "flowbite-react";
+import { useEffect, useState } from "react";
+import { Dropdown, Modal } from "flowbite-react";
 import logo from "../../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BlackLogo from "../../../Icones/BlackLogo";
 import ClockIcon from "../../../Icones/clockIcon";
 import EmailIcone from "../../../Icones/EmailIcone";
 import NotificationIcon from "../../../Icones/NotificationIcon";
-import { BxChevronDown } from "../../../Icones/BxChevronDown";
 import { AxiosError } from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -18,6 +17,8 @@ import {
 import { PasswordValidation } from "../../../Validation/Validation";
 import ButtonForm from "../../AuthShared/ButtonForm/ButtonForm";
 import PasswordInput from "../../AuthShared/PasswordInput/PasswordInput";
+import { RootState } from "@reduxjs/toolkit/query";
+import { useSelector } from "react-redux";
 export default function NavBar() {
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
@@ -60,6 +61,9 @@ const IconsBlock = () => {
 
 const ProfileInfo = () => {
   const [openModal, setOpenModal] = useState(false);
+  const userInfo = useSelector((state: RootState) => state.userInfo.value);
+  const navigate = useNavigate();
+  console.log(userInfo);
   const {
     register,
     formState: { errors, isSubmitting },
@@ -68,6 +72,7 @@ const ProfileInfo = () => {
     setFocus,
   } = useForm();
   console.log(openModal);
+
   const onSubmit: SubmitHandler<ChangePasswordReguest> = async (data) => {
     const toastId = toast.loading("Processing...");
     try {
@@ -95,12 +100,20 @@ const ProfileInfo = () => {
   return (
     <div className="flex flex-row items-center ml-10 mr-8">
       <div className="flex flex-col text-base mr-12">
-        <span className="font-bold">Nwabuikwu Chizuruoke</span>
-        <span className="text-slate-300">Tutor</span>
+        <span className="font-bold">
+          {userInfo.first_name} {userInfo?.last_name}
+        </span>
+        <span className="text-slate-300">{userInfo?.role}</span>
       </div>
 
       <Dropdown dismissOnClick={false} inline size="xl" placement="bottom">
-        <Dropdown.Item>Sign out</Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/login");
+          }}>
+          Sign out
+        </Dropdown.Item>
         <Dropdown.Item as={"span"} onClick={() => setOpenModal(true)}>
           Change password
         </Dropdown.Item>

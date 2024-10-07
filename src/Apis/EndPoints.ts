@@ -20,3 +20,5 @@ export const AUTHENTICATION_URLS = {
   changePassword: `/auth/change-password`,
   resetPassword: `${baseURL}/auth/reset-password`,
 };
+
+
