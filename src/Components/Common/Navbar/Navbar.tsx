@@ -105,7 +105,7 @@ const ProfileInfo = () => {
         <span className="font-bold">
           {userInfo.first_name} {userInfo?.last_name}
         </span>
-        <span className="text-slate-300">{userInfo?.role}</span>
+        <span className="text-[#C5D86D]">{userInfo?.role}</span>
       </div>
 
       <Dropdown dismissOnClick={false} inline size="xl" placement="bottom">
@@ -113,7 +113,8 @@ const ProfileInfo = () => {
           onClick={() => {
             localStorage.removeItem("token");
             navigate("/login");
-          }}>
+          }}
+        >
           Sign out
         </Dropdown.Item>
         <Dropdown.Item as={"span"} onClick={() => setOpenModal(true)}>
@@ -124,7 +125,8 @@ const ProfileInfo = () => {
         show={openModal}
         size="3xl"
         onClose={() => setOpenModal(false)}
-        popup>
+        popup
+      >
         <Modal.Header className="bg-[#0D1321]" />
         <Modal.Body className="bg-[#0D1321]">
           <div>
@@ -136,7 +138,8 @@ const ProfileInfo = () => {
             </p>
             <form
               className="my-7 flex flex-col gap-3"
-              onSubmit={handleSubmit(onSubmit)}>
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <PasswordInput
                 label="Password"
                 error={
@@ -175,96 +178,3 @@ const ProfileInfo = () => {
     </div>
   );
 };
-
-// const ChangePassword = ({ setOpenModal, openModal }) => {
-//   const {
-//     register,
-//     formState: { errors, isSubmitting },
-//     handleSubmit,
-//     watch,
-//     setFocus,
-//   } = useForm();
-//   console.log(openModal);
-//   const onSubmit: SubmitHandler<ChangePasswordReguest> = async (data) => {
-//     const toastId = toast.loading("Processing...");
-//     try {
-//       const { Confirm_Password, ...submitData } = data;
-
-//       const response = await apiClient.post<ChangePasswordResponse>(
-//         AUTHENTICATION_URLS.changePassword,
-//         submitData
-//       );
-
-//       setOpenModal(false);
-//       toast.success("Paswword is changed Successfully", {
-//         id: toastId,
-//       });
-//     } catch (error) {
-//       const axiosError = error as AxiosError<{ message: string }>;
-//       toast.error(axiosError.response?.data?.message || "An error occurred", {
-//         id: toastId,
-//       });
-//     }
-//   };
-//   useEffect(() => {
-//     setFocus("password");
-//   }, []);
-
-//   return (
-//     <>
-//       <span>Change Password</span>
-//       <Modal
-//         show={openModal}
-//         size="3xl"
-//         onClose={() => setOpenModal(false)}
-//         popup>
-//         <Modal.Header className="bg-[#0D1321]" />
-//         <Modal.Body className="bg-[#0D1321]">
-//           <div>
-//             <div className="w-[200px]">
-//               <img src={logo} alt="Logo" />
-//             </div>
-//             <p className="font-bold text-2xl text-[#C5D86D] pt-4">
-//               Change Password
-//             </p>
-//             <form
-//               className="my-7 flex flex-col gap-3"
-//               onSubmit={handleSubmit(onSubmit)}>
-//               <PasswordInput
-//                 label="Password"
-//                 error={
-//                   errors?.password?.message && String(errors.password.message)
-//                 }
-//                 {...register("password", { required: "Password is required" })}
-//               />
-//               <PasswordInput
-//                 label="New Password"
-//                 error={
-//                   errors?.password_new?.message &&
-//                   String(errors.password_new.message)
-//                 }
-//                 {...register("password_new", PasswordValidation(8))}
-//               />
-//               <PasswordInput
-//                 label="Confirm Password"
-//                 error={
-//                   errors?.Confirm_Password?.message &&
-//                   String(errors.Confirm_Password.message)
-//                 }
-//                 {...register("Confirm_Password", {
-//                   required: "Confirm Password is required",
-//                   validate: (value) =>
-//                     value === watch("password_new") || "Passwords do not match",
-//                 })}
-//               />
-
-//               <div className="flex justify-start gap-4 mt-3">
-//                 <ButtonForm isSubmitting={isSubmitting} text="Change" />
-//               </div>
-//             </form>
-//           </div>
-//         </Modal.Body>
-//       </Modal>
-//     </>
-//   );
-// };
