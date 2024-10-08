@@ -12,6 +12,7 @@ import MasterLayout from "./Layouts/MasterLayout/MasterLayout";
 import UserLayout from "./Layouts/UserLayout/UserLayout";
 import { Toaster } from "react-hot-toast";
 import Home from "./Pages/MasterPages/Home/Home";
+import GroupsList from "./Pages/MasterPages/GroupsList/GroupsList";
 
 function App() {
   const routes = createBrowserRouter([
@@ -31,7 +32,11 @@ function App() {
       path: "dashboard",
       element: <MasterLayout />,
       errorElement: <NotFound />,
-      children: [{ index: true, element: <Home /> }],
+      children: [
+        { index: true, element: <Home /> },
+        { path: "home", element: <Home /> },
+        { path: "groups", element: <GroupsList /> },
+      ],
     },
     {
       path: "student",
