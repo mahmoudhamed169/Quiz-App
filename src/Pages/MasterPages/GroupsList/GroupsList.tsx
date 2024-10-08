@@ -6,10 +6,12 @@ import { Group } from "../../../InterFaces/Interfaces";
 import { apiClient } from "../../../Apis/EndPoints";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import GroupDataModel from "./GroupDataModel";
 
 export default function GroupsList() {
   const [groups, setGroups] = useState<Group[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [openModal, setOpenModal] = useState<boolean>(true);
 
   const getAllGroups = async () => {
     setLoading(true);
@@ -23,14 +25,17 @@ export default function GroupsList() {
       setLoading(false);
     }
   };
-
+  const handelCloseModel = () => {
+    setOpenModal(false);
+  };
   useEffect(() => {
     getAllGroups();
   }, []);
   return (
     <section className="m-5 ">
       <div className="flex justify-end ">
-        <CustomBtn text="Add Group" />
+        {/* <CustomBtn text="Add Group" onClick={() => setOpenModal(true)} /> */}
+        <GroupDataModel />
       </div>
       <div className="group-list lg:h-[509px] border-gray-300 border rounded-lg  mt-4">
         <h5 className="font-medium  text-xl leading-7 mt-4 ms-5">
