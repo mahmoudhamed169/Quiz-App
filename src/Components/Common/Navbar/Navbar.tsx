@@ -17,8 +17,8 @@ import {
 import { PasswordValidation } from "../../../Validation/Validation";
 import ButtonForm from "../../AuthShared/ButtonForm/ButtonForm";
 import PasswordInput from "../../AuthShared/PasswordInput/PasswordInput";
-import { RootState } from "@reduxjs/toolkit/query";
 import { useSelector } from "react-redux";
+import { RootState } from "../../../Redux/store";
 export default function NavBar() {
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
