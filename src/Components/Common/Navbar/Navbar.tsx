@@ -25,9 +25,11 @@ export default function NavBar() {
       <div className="px-8">
         <BlackLogo />
       </div>
-      <div className="flex justify-between border-x  flex-1 h-full items-center">
-        <span className="text-2xl font-bold ml-5">Groups</span>
-        <button className="border rounded-full flex px-4 py-2 font-bold items-center mr-5">
+      <div className="flex justify-between border-x gap-4  flex-1 h-full items-center">
+        <span className=" text-xl md:text-2xl font-bold ml-1 md:ml-5">
+          Groups
+        </span>
+        <button className="border text-base rounded-full flex px-4 w-max  py-2 font-bold items-center mr-1 md:mr-5">
           <ClockIcon /> <span className="pl-1">New quiz</span>
         </button>
       </div>
@@ -41,7 +43,7 @@ export default function NavBar() {
 
 const IconsBlock = () => {
   return (
-    <div className="flex   items-center ">
+    <div className="md:flex hidden   items-center ">
       <div className="h-full border-r  flex justify-center items-center relative ">
         <EmailIcone className="mx-7 " color="black" />
         <div className="curcle bg-pink-200 w-5 h-5 text-xs text-center leading-5 rounded-full font-bold absolute top-3 right-3">
@@ -98,8 +100,8 @@ const ProfileInfo = () => {
     setFocus("password");
   }, []);
   return (
-    <div className="flex flex-row items-center ml-10 mr-8">
-      <div className="flex flex-col text-base mr-12">
+    <div className="flex flex-row items-center ml-2 md:ml-10 mr-8">
+      <div className="flex flex-col text-base md:mr-12">
         <span className="font-bold">
           {userInfo.first_name} {userInfo?.last_name}
         </span>
