@@ -9,7 +9,7 @@ interface Iprops {
 export default function GroupCard({ group }: Iprops) {
   return (
     <>
-      <div className="groupCard border-gray-300 border rounded-lg w-[30rem] h-[4.5rem]   flex justify-between p-5 items-center">
+      <div className="groupCard border-gray-300 border rounded-lg w-[32%] h-[4.5rem]   flex justify-between p-5 items-center">
         <div className="flex flex-col gap-1">
           <h6 className="font-semibold text-lg leading-6">
             Group : {group.name}

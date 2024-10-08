@@ -1,13 +1,15 @@
-import React from "react";
+import React, { SVGProps } from "react";
 
-export default function BlackLogo() {
+export default function BlackLogo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width="65"
       height="35"
       viewBox="0 0 65 35"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
       <g clip-path="url(#clip0_2380_440)">
         <path
           d="M11.9009 24.6858L17.0903 19.495L22.2487 24.6858L24.697 22.2346L19.5091 17.0791L24.697 11.9199L22.2487 9.46875L17.0903 14.6257L11.9671 9.46875L9.5159 11.9199L14.642 17.0791L9.45117 22.2346L11.9009 24.6858Z"

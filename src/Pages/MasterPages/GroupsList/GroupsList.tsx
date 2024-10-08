@@ -28,7 +28,7 @@ export default function GroupsList() {
     getAllGroups();
   }, []);
   return (
-    <section className="m-5 w-[1030px]">
+    <section className="m-5 ">
       <div className="flex justify-end ">
         <CustomBtn text="Add Group" />
       </div>
@@ -36,7 +36,7 @@ export default function GroupsList() {
         <h5 className="font-medium  text-xl leading-7 mt-4 ms-5">
           Groups list
         </h5>
-        <div className="cards flex flex-wrap mt-7 gap-[10px] ms-5">
+        <div className="cards flex flex-wrap mt-7 gap-[15px] ms-5">
           {groups &&
             groups.map((group, index) => (
               <GroupCard key={index} group={group} />

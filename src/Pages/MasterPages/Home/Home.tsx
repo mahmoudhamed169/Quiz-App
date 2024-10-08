@@ -5,14 +5,14 @@ import UpcomingQuiz from "../../../Components/MasterShared/UpcomingQuiz/Upcoming
 export default function Home() {
   return (
     <div>
-      <div className="flex flex-col lg:flex-row gap-5">
+      <div className="flex flex-col lg:flex-row gap-10  ms-11">
         {/* Upcoming Quiz */}
-        <div className="w-full lg:w-[550px]">
+        <div className="lg:w-[50%] ">
           <UpcomingQuiz />
         </div>
 
         {/* Top Five Students */}
-        <div className="w-full lg:w-[450px]">
+        <div className=" lg:w-[550px]">
           <TopFiveStudents />
         </div>
       </div>

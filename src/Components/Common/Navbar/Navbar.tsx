@@ -22,9 +22,9 @@ import { RootState } from "../../../Redux/store";
 export default function NavBar() {
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
-      <div className="px-8">
+      {/* <div className="px-8">
         <BlackLogo />
-      </div>
+      </div> */}
       <div className="flex justify-between border-x gap-4  flex-1 h-full items-center">
         <span className=" text-xl md:text-2xl font-bold ml-1 md:ml-5">
           Groups
