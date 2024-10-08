@@ -88,3 +88,10 @@ export interface Quiz {
   createdAt: string;
   __v: number;
 }
+
+export interface DeleteModalType {
+  setOpenModal: (value: boolean) => void;
+  openModal: boolean;
+  onConfirm: () => void;
+  title: string;
+}

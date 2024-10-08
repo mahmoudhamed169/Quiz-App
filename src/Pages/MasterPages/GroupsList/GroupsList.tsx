@@ -6,6 +6,7 @@ import { Group } from "../../../InterFaces/Interfaces";
 import { apiClient } from "../../../Apis/EndPoints";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/DeleteModal";
 
 export default function GroupsList() {
   const [groups, setGroups] = useState<Group[]>([]);

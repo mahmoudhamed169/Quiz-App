@@ -20,11 +20,18 @@ import PasswordInput from "../../AuthShared/PasswordInput/PasswordInput";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
 export default function NavBar() {
+  const isCollapsed = useSelector(
+    (state: RootState) => state.collapse.collpased
+  );
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
-      {/* <div className="px-8">
+      <div
+        className={`px-8 delay-500 transition-all ${
+          isCollapsed ? "ml-0" : "-ml-36"
+        }`}>
         <BlackLogo />
-      </div> */}
+      </div>
+
       <div className="flex justify-between border-x gap-4  flex-1 h-full items-center">
         <span className=" text-xl md:text-2xl font-bold ml-1 md:ml-5">
           Groups
@@ -64,6 +71,7 @@ const IconsBlock = () => {
 const ProfileInfo = () => {
   const [openModal, setOpenModal] = useState(false);
   const userInfo = useSelector((state: RootState) => state.userInfo.value);
+
   const navigate = useNavigate();
   console.log(userInfo);
   const {
@@ -113,8 +121,7 @@ const ProfileInfo = () => {
           onClick={() => {
             localStorage.removeItem("token");
             navigate("/login");
-          }}
-        >
+          }}>
           Sign out
         </Dropdown.Item>
         <Dropdown.Item as={"span"} onClick={() => setOpenModal(true)}>
@@ -125,8 +132,7 @@ const ProfileInfo = () => {
         show={openModal}
         size="3xl"
         onClose={() => setOpenModal(false)}
-        popup
-      >
+        popup>
         <Modal.Header className="bg-[#0D1321]" />
         <Modal.Body className="bg-[#0D1321]">
           <div>
@@ -138,8 +144,7 @@ const ProfileInfo = () => {
             </p>
             <form
               className="my-7 flex flex-col gap-3"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+              onSubmit={handleSubmit(onSubmit)}>
               <PasswordInput
                 label="Password"
                 error={
