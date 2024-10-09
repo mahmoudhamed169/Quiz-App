@@ -8,9 +8,10 @@ import { apiClient, AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
 
 interface Iprops {
   group: Group;
+  getAllGroups: () => void;
 }
 
-export default function GroupCard({ group }: Iprops) {
+export default function GroupCard({ group, getAllGroups }: Iprops) {
   const [openModal, setOpenModal] = useState(false);
   console.log(group);
   const deleteGroup = async () => {
@@ -22,6 +23,7 @@ export default function GroupCard({ group }: Iprops) {
       toast.success("Group deleted successfully", {
         id: toastId,
       });
+      getAllGroups();
       setOpenModal(false);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;

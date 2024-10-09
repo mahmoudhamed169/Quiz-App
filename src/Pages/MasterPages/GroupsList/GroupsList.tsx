@@ -40,7 +40,11 @@ export default function GroupsList() {
         <div className="cards flex flex-wrap mt-7 gap-[15px] ms-5">
           {groups &&
             groups.map((group, index) => (
-              <GroupCard key={index} group={group} />
+              <GroupCard
+                key={index}
+                group={group}
+                getAllGroups={getAllGroups}
+              />
             ))}
         </div>
       </div>
