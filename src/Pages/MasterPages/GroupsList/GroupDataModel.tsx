@@ -13,7 +13,7 @@ export default function GroupDataModel() {
   const [allStudent, setAllStudent] = useState<Student[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [openModal, setOpenModal] = useState(false);
-
+  console.log(allStudent);
   const {
     register,
     formState: { errors, isSubmitting },
@@ -66,6 +66,7 @@ export default function GroupDataModel() {
       toast.error(axiosError.response?.data?.message || "An error occurred", {
         id: toastId,
       });
+      console.log(axiosError);
     }
   };
 
@@ -82,8 +83,7 @@ export default function GroupDataModel() {
               <button
                 type="submit"
                 className="text-2xl font-extrabold w-[80px] h-full border-l py-5"
-                disabled={isSubmitting || loading}
-              >
+                disabled={isSubmitting || loading}>
                 {isSubmitting ? (
                   <Loader className="loader-spin m-auto " />
                 ) : (
@@ -93,8 +93,7 @@ export default function GroupDataModel() {
               <button
                 type="button"
                 className="text-2xl font-extrabold border-l py-5 w-[80px]"
-                onClick={handleCloseModal}
-              >
+                onClick={handleCloseModal}>
                 {"\u2717"}
               </button>
             </div>
@@ -130,8 +129,7 @@ export default function GroupDataModel() {
                     {...register("students", {
                       required: "At least one student must be selected",
                     })}
-                    className="appearance-none w-full bg-transparent border-none focus:outline-none focus:ring-1 focus:ring-[#C5D86D] focus:border-transparent"
-                  >
+                    className="appearance-none w-full bg-transparent border-none focus:outline-none focus:ring-1 focus:ring-[#C5D86D] focus:border-transparent">
                     <option value="" disabled>
                       Select Students List
                     </option>
@@ -139,8 +137,7 @@ export default function GroupDataModel() {
                       <option
                         value={student._id}
                         key={student._id}
-                        className="text-slate-700 hover:bg-[#C5D86D] hover:text-white"
-                      >
+                        className="text-slate-700 hover:bg-[#C5D86D] hover:text-white">
                         {`${student.first_name} ${student.last_name}`}
                       </option>
                     ))}
