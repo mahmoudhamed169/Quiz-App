@@ -36,14 +36,13 @@ export default function UpcomingQuiz() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-4 min-h-[607px]">
+      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-2 lg:m-4 min-h-[607px]">
         {!loading ? (
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-bold">Upcoming 5 quizzes</h6>
             <Link
               to={"/dashboard/home"}
-              className="flex gap-1 items-center font-normal text-xs"
-            >
+              className="flex gap-1 items-center font-normal text-xs">
               Quiz directory{" "}
               <MoveRight color="#C5D86D" height={"30px"} width={"18.31px"} />
             </Link>

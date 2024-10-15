@@ -35,13 +35,13 @@ export default function GroupsList() {
     <section className="m-5 ">
       <div className="flex justify-end ">
         {/* <CustomBtn text="Add Group" onClick={() => setOpenModal(true)} /> */}
-        <GroupDataModel />
+        <GroupDataModel getAllGroups={getAllGroups} />
       </div>
       <div className="group-list lg:h-[509px] border-gray-300 border rounded-lg  mt-4">
         <h5 className="font-medium  text-xl leading-7 mt-4 ms-5">
           Groups list
         </h5>
-        <div className="cards flex flex-wrap mt-7 gap-[15px] ms-5">
+        <div className="cards flex lg:flex-row flex-col justify-center lg:justify-normal flex-wrap mt-7 gap-[15px] mx-5 mb-2">
           {groups &&
             groups.map((group, index) => (
               <GroupCard key={index} group={group} />

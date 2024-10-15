@@ -9,7 +9,11 @@ import { useForm } from "react-hook-form";
 import { Loader } from "lucide-react";
 import { apiClient } from "./../../../Apis/EndPoints";
 
-export default function GroupDataModel() {
+export default function GroupDataModel({
+  getAllGroups,
+}: {
+  getAllGroups: () => void;
+}) {
   const [allStudent, setAllStudent] = useState<Student[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [openModal, setOpenModal] = useState(false);
@@ -25,7 +29,7 @@ export default function GroupDataModel() {
   const getAllStudent = async () => {
     setLoading(true);
     try {
-      const response = await apiClient.get<Student[]>("student");
+      const response = await apiClient.get<Student[]>("student/without-group");
       setAllStudent(response.data);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -61,6 +65,7 @@ export default function GroupDataModel() {
       });
 
       handleCloseModal();
+      getAllGroups();
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       toast.error(axiosError.response?.data?.message || "An error occurred", {
