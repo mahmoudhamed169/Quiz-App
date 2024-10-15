@@ -6,6 +6,7 @@ import { Group } from "../../../InterFaces/Interfaces";
 import { apiClient } from "../../../Apis/EndPoints";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/DeleteModal";
 import GroupDataModel from "./GroupDataModel";
 
 export default function GroupsList() {
@@ -44,7 +45,11 @@ export default function GroupsList() {
         <div className="cards flex lg:flex-row flex-col justify-center lg:justify-normal flex-wrap mt-7 gap-[15px] mx-5 mb-2">
           {groups &&
             groups.map((group, index) => (
-              <GroupCard key={index} group={group} />
+              <GroupCard
+                key={index}
+                group={group}
+                getAllGroups={getAllGroups}
+              />
             ))}
         </div>
       </div>
