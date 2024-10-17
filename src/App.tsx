@@ -13,7 +13,7 @@ import UserLayout from "./Layouts/UserLayout/UserLayout";
 import { Toaster } from "react-hot-toast";
 import Home from "./Pages/MasterPages/Home/Home";
 import GroupsList from "./Pages/MasterPages/GroupsList/GroupsList";
-import Quizzes from "./Pages/MasterPages/Quizes/Quizes";
+import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 
 function App() {
   const routes = createBrowserRouter([
