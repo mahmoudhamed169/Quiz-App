@@ -2,7 +2,7 @@ export default function Pagination({
   totalCount,
   setCurrentPage,
   itemPerPage,
-  currentPage
+  currentPage,
 }) {
   // Calculate the total number of pages
   const totalPages = Math.ceil(totalCount / itemPerPage);
@@ -33,7 +33,7 @@ export default function Pagination({
                 currentPage === 1
                   ? "cursor-not-allowed opacity-50"
                   : "hover:bg-gray-100 hover:text-gray-700"
-              } flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
+              }    flex  items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -61,7 +61,7 @@ export default function Pagination({
                 onClick={() => setCurrentPage(i + 1)}
                 className={`${
                   currentPage === i + 1
-                    ? "bg-slate-950 text-[#ffffff]"
+                    ? "bg-slate-500 text-white"
                     : "hover:bg-gray-100 hover:text-gray-700"
                 } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
               >
