@@ -36,7 +36,7 @@ export default function UpcomingQuiz() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-2 lg:m-4 min-h-[607px]">
+      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-2 lg:mt-4 min-h-[607px]">
         {!loading ? (
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-bold">Upcoming 5 quizzes</h6>

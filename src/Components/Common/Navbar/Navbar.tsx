@@ -26,7 +26,7 @@ export default function NavBar() {
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
       <div
-        className={`px-8 delay-500 transition-all ${
+        className={`lg:px-8 px-3 delay-500 transition-all ${
           isCollapsed ? "ml-0" : "-ml-36"
         }`}>
         <BlackLogo />
@@ -42,7 +42,7 @@ export default function NavBar() {
       </div>
       <div className="flex w-max h-full">
         <IconsBlock />
-        <ProfileInfo />
+        {/* <ProfileInfo /> */}
       </div>
     </div>
   );

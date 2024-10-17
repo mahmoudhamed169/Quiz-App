@@ -128,7 +128,7 @@ const SideBar = () => {
                 </svg>
               </i>
             }
-            component={<Link to="/dashboard/learnerquiz" />}>
+            component={<Link to="/dashboard/quizzes" />}>
             <p className="text-[19px] group-hover:tracking-wide font-bold ">
               Quiz
             </p>
