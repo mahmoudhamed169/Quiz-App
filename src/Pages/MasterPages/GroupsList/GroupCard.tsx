@@ -5,6 +5,7 @@ import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/Delete
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { apiClient, AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
+import { GroupFormModal } from "./GroupDataModel";
 
 interface Iprops {
   group: Group;
@@ -13,6 +14,7 @@ interface Iprops {
 
 export default function GroupCard({ group, getAllGroups }: Iprops) {
   const [openModal, setOpenModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   console.log(group);
   const deleteGroup = async () => {
     const toastId = toast.loading("Processing...");
@@ -44,13 +46,22 @@ export default function GroupCard({ group, getAllGroups }: Iprops) {
           </p>
         </div>
         <div className="icones flex gap-[6px]">
-          <FilePenLine cursor={"pointer"} />
+          <FilePenLine
+            onClick={() => setOpenUpdateModal(true)}
+            cursor={"pointer"}
+          />
 
           <DeleteModal
             openModal={openModal}
             setOpenModal={setOpenModal}
             onConfirm={deleteGroup}
             title="group"
+          />
+          <GroupFormModal
+            getAllGroups={getAllGroups}
+            group={group}
+            openModal={openUpdateModal}
+            setOpenModal={setOpenUpdateModal}
           />
         </div>
       </div>
