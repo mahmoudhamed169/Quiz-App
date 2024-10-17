@@ -1,50 +1,67 @@
 import { Eye, FilePenLine, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { IQuestion } from "../../../InterFaces/Interfaces";
-import { apiClient } from "../../../Apis/EndPoints";
-import toast from "react-hot-toast";
-import { AxiosError } from "axios";
 import Pagination from "./Pagination";
-import TableLoader from "./TableSkeleton";
 import TableSkeleton from "./TableSkeleton";
+import { useEffect, useState } from "react";
+import QuestionData from "./QuestionData";
 
-export default function TableComponent() {
-  const [qustions, setQustions] = useState<IQuestion[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(4);
+interface TableComponentProps {
+  questions: IQuestion[];
+  loading: boolean;
+  totalCount: number;
+  getQuestions: () => void;
+}
+
+export default function TableComponent({
+  questions,
+  loading,
+  totalCount,
+  getQuestions,
+}: TableComponentProps) {
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemPerPage] = useState<number>(8);
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [paginatedQustions, setPaginatedQustions] = useState<IQuestion>([]);
+  const [paginatedQuestions, setPaginatedQuestions] = useState<IQuestion[]>([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedQuestionData, setSelectedQuestionData] =
+    useState<IQuestion | null>(null); // State for selected question
+  const [mode, setMode] = useState<"add" | "edit" | "view">("view"); // State for the modal mode
 
-  const getQustions = async () => {
-    setLoading(true);
-    try {
-      const response = await apiClient.get<IQuestion[]>("question");
-      setQustions(response.data);
-      setTotalCount(response.data.length);
-      console.log(totalCount);
-
-      console.log(response.data);
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      toast.error(axiosError.response?.data?.message || "An error occurred");
-    } finally {
-      setLoading(false);
+  const handelOpenModle = (
+    question?: IQuestion,
+    mode?: "add" | "edit" | "view"
+  ) => {
+    if (question) {
+      setSelectedQuestionData(question); // Set selected question data for viewing/editing
+    } else {
+      setSelectedQuestionData(null); // Reset for adding a new question
     }
+
+    if (mode) {
+      setMode(mode); // Set mode to the passed mode
+    }
+
+    setOpenModal(true);
+  };
+
+  const handelCloseModle = () => {
+    setOpenModal(false);
+    setSelectedQuestionData(null);
+    setMode("view"); // Reset mode to view when closing
   };
 
   useEffect(() => {
-    getQustions();
-  }, []);
+    const totalItems = questions.length;
+    const startIndex = totalItems - currentPage * itemPerPage;
 
-  useEffect(() => {
-    setPaginatedQustions(
-      qustions.slice(
-        (currentPage - 1) * itemPerPage + 1,
-        currentPage * itemPerPage
-      )
+    setPaginatedQuestions(
+      questions
+        .slice(
+          Math.max(startIndex, 0),
+          totalItems - (currentPage - 1) * itemPerPage
+        )
+        .reverse()
     );
-  }, [qustions, itemPerPage, currentPage]);
+  }, [questions, itemPerPage, currentPage]);
 
   return (
     <>
@@ -55,53 +72,51 @@ export default function TableComponent() {
           <table className="w-full mt-5 border-separate">
             <thead className="text-[#ffff] text-left border ">
               <tr>
-                <th className="bg-[#0D1321] font-normal  py-2 text-xs rounded-s px-4 ">
+                <th className="bg-[#0D1321] font-normal py-2 text-xs rounded-s px-4 ">
                   Question Title
                 </th>
                 <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
                   Question Desc
                 </th>
-                <th className="bg-[#0D1321] font-normal py-2 text-xs px-4  ">
-                  Question difficulty level
+                <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
+                  Question Difficulty Level
                 </th>
-                <th className="bg-[#0D1321]  font-normal py-2 text-xs px-4 ">
-                  type
+                <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
+                  Type
                 </th>
-
                 <th className="bg-[#0D1321] font-normal py-2 rounded-e text-xs px-4 ">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody>
-              {paginatedQustions &&
-                paginatedQustions.map((qus, index) => (
-                  <tr key={index}>
-                    <td className=" py-2 px-4 border border-[#00000033] rounded-s">
-                      {qus.title}
-                    </td>
-                    <td className=" py-2 px-4  border border-[#00000033]">
-                      {qus.description}
-                    </td>
-                    <td className=" py-2 px-4  border border-[#00000033]">
-                      {qus.difficulty}
-                    </td>
-                    <td className=" py-2 px-4  border border-[#00000033]">
-                      {qus.type}
-                    </td>
-                    <td className=" py-2 px-4  border border-[#00000033] rounded-e flex gap-3 items-center text-[#FB7C19]">
-                      <button>
-                        <Eye className="hover:cursor-pointer" />
-                      </button>
-                      <button>
-                        <FilePenLine className="hover:cursor-pointer" />
-                      </button>
-                      <button>
-                        <Trash2 className="hover:cursor-pointer" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+              {paginatedQuestions.map((qus, index) => (
+                <tr key={index}>
+                  <td className="py-2 px-4 border border-[#00000033] rounded-s">
+                    {qus.title}
+                  </td>
+                  <td className="py-2 px-4 border border-[#00000033]">
+                    {qus.description}
+                  </td>
+                  <td className="py-2 px-4 border border-[#00000033]">
+                    {qus.difficulty}
+                  </td>
+                  <td className="py-2 px-4 border border-[#00000033]">
+                    {qus.type}
+                  </td>
+                  <td className="py-2 px-4 border border-[#00000033] rounded-e flex gap-3 items-center text-[#FB7C19]">
+                    <button onClick={() => handelOpenModle(qus, "view")}>
+                      <Eye className="hover:cursor-pointer" />
+                    </button>
+                    <button onClick={() => handelOpenModle(qus, "edit")}>
+                      <FilePenLine className="hover:cursor-pointer" />
+                    </button>
+                    <button>
+                      <Trash2 className="hover:cursor-pointer" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
 
@@ -115,6 +130,13 @@ export default function TableComponent() {
           </div>
         </div>
       )}
+      <QuestionData
+        handelCloseModle={handelCloseModle}
+        openModal={openModal}
+        mode={mode} // Pass the current mode
+        questionData={selectedQuestionData}
+        getQuestions={getQuestions}
+      />
     </>
   );
 }

@@ -96,8 +96,7 @@ export interface DeleteModalType {
   title: string;
 }
 
-
- interface Options {
+interface Options {
   A: string;
   B: string;
   C: string;
@@ -115,5 +114,5 @@ export interface IQuestion {
   instructor: string;
   difficulty: "easy" | "medium" | "hard";
   points: number;
-  type: "BE" | "MCQ" | "ShortAnswer"; 
+  type: "BE" | "MCQ" | "ShortAnswer" | "FE";
 }
