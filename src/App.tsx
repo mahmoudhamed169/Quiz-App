@@ -15,6 +15,7 @@ import Home from "./Pages/MasterPages/Home/Home";
 import GroupsList from "./Pages/MasterPages/GroupsList/GroupsList";
 import QuestionsList from "./Pages/MasterPages/QuestionsList/QuestionsList";
 import Result from "./Pages/MasterPages/Results/Results";
+import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 
 function App() {
   const routes = createBrowserRouter([
@@ -40,6 +41,7 @@ function App() {
         { path: "groups", element: <GroupsList /> },
         { path: "questions", element: <QuestionsList /> },
         { path: "results", element: <Result /> },
+        { path: "quizzes", element: <Quizzes /> },
       ],
     },
     {

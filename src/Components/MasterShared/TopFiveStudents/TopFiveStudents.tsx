@@ -34,7 +34,7 @@ export default function TopFiveStudents() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-2 lg:m-4 lg:min-h-[607px]">
+      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px]   lg:min-h-[607px]">
         {!loading ? (
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-medium">Top 5 Students </h6>

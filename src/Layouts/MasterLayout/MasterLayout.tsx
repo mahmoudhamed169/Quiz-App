@@ -7,8 +7,8 @@ import SideBar from "../../Components/Common/SideBar/SideBar";
 export default function MasterLayout() {
   return (
     <>
-      <div className="flex">
-        <div className="flex-shrink-0 bg-[#ffff]">
+      <div className="flex w-full">
+        <div className=" bg-[#ffff]">
           <SideBar />
         </div>
         <div className="w-full ">
