@@ -116,3 +116,15 @@ export interface IQuestion {
   points: number;
   type: "BE" | "MCQ" | "ShortAnswer" | "FE";
 }
+
+export interface QuizRequest {
+  title: string;
+  description: string;
+  group: string;
+  questions_number: number;
+  difficulty: string;
+  type: string;
+  schadule: string;
+  duration: string;
+  score_per_question: string;
+}

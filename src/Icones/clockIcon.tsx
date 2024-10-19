@@ -1,13 +1,14 @@
-import React from "react";
+import React, { SVGProps } from "react";
 
-export default function ClockIcon() {
+export default function ClockIcon(props: SVGProps<SVGElement>) {
   return (
     <svg
       width="28"
       height="28"
       viewBox="0 0 28 28"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
       <path
         d="M14 2C6.8 2 1 7.8 1 15C1 22.2 6.8 28 14 28C21.2 28 27 22.2 27 15C27 7.8 21.2 2 14 2ZM14 26.1C7.9 26.1 2.9 21.1 2.9 15C2.9 8.9 7.9 3.9 14 3.9C20.1 3.9 25.1 8.9 25.1 15C25.1 21.1 20.1 26.1 14 26.1ZM1.7 5.7L5.7 1.7C6.1 1.3 6.1 0.7 5.7 0.3C5.3 -0.1 4.7 -0.1 4.3 0.3L0.3 4.3C-0.1 4.7 -0.1 5.3 0.3 5.7C0.5 5.9 0.7 6 1 6C1.3 6 1.5 5.9 1.7 5.7ZM27.7 4.3L23.7 0.3C23.3 -0.1 22.7 -0.1 22.3 0.3C21.9 0.7 21.9 1.3 22.3 1.7L26.3 5.7C26.5 5.9 26.7 6 27 6C27.3 6 27.5 5.9 27.7 5.7C28.1 5.3 28.1 4.7 27.7 4.3Z"
         fill="#0D1321"
