@@ -128,3 +128,43 @@ export interface QuizRequest {
   duration: string;
   score_per_question: string;
 }
+interface QuizResult {
+  _id: string;
+  code: string;
+  title: string;
+  description: string;
+  status: "open" | "closed"; // Enum for status
+  instructor: string; // Instructor ID
+  group: string; // Group ID
+  questions_number: number;
+  schadule: string; // Date in ISO format
+  duration: number; // Duration in minutes
+  score_per_question: number;
+  type: string; // Example: "BE", "FE"
+  difficulty: "easy" | "medium" | "hard"; // Enum for difficulty
+  updatedAt: string; // Date in ISO format
+  createdAt: string; // Date in ISO format
+  closed_at?: string; // Optional field for closed quizzes
+}
+
+interface Participant {
+  _id: string;
+  quiz: {
+    _id: string;
+    title: string;
+  };
+  participant: {
+    _id: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+  };
+  score: number;
+  started_at: string;
+  finished_at?: string; // Optional if quiz is ongoing
+}
+
+export interface ResultResponse {
+  quiz: QuizResult;
+  participants: Participant[];
+}

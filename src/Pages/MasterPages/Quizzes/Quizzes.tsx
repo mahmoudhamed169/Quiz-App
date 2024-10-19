@@ -12,6 +12,15 @@ import { Link } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import AddQuizModal from "./AddQuizModal";
 
+export const convertDate = (date: string) => {
+  const dateFromApi = new Date(date);
+  const readableDate = dateFromApi.toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+  return readableDate;
+};
 export default function Quizzes() {
   const [completedQuiz, setCompletedQuiz] = useState<Quiz[]>([]);
   const [groupInfo, setGroupInfo] = useState<Group[]>([]);
@@ -54,15 +63,7 @@ export default function Quizzes() {
       toast.error(axiosError.response?.data?.message || "An error occurred");
     }
   };
-  const convertDate = (date: string) => {
-    const dateFromApi = new Date(date);
-    const readableDate = dateFromApi.toLocaleString("en-US", {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    });
-    return readableDate;
-  };
+
 
   useEffect(() => {
     getCompletedQuizzes();
