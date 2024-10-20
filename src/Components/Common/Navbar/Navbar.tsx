@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Dropdown, Modal } from "flowbite-react";
 import logo from "../../../assets/logo.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import BlackLogo from "../../../Icones/BlackLogo";
 import ClockIcon from "../../../Icones/clockIcon";
 import EmailIcone from "../../../Icones/EmailIcone";
@@ -19,10 +19,25 @@ import ButtonForm from "../../AuthShared/ButtonForm/ButtonForm";
 import PasswordInput from "../../AuthShared/PasswordInput/PasswordInput";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
+import AddQuizModal from "../../../Pages/MasterPages/Quizzes/AddQuizModal";
 export default function NavBar() {
+  const { pathname } = useLocation();
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const handelOpenModle = () => {
+    setOpenModal(true);
+  };
+  const handelCloseModle = () => {
+    setOpenModal(false);
+  };
   const isCollapsed = useSelector(
     (state: RootState) => state.collapse.collpased
   );
+  const pageTitle = () => {
+    const arrayFromPath = pathname.split("/");
+    const title =
+      arrayFromPath.length > 2 ? arrayFromPath[2] : arrayFromPath[1];
+    return title.charAt(0).toUpperCase() + title.slice(1);
+  };
   return (
     <div className="border-b px-0 py-0 flex items-center h-20 ">
       <div
@@ -31,12 +46,14 @@ export default function NavBar() {
         }`}>
         <BlackLogo />
       </div>
-
+      <AddQuizModal openModal={openModal} handelCloseModle={handelCloseModle} />
       <div className="flex justify-between border-x gap-4  flex-1 h-full items-center">
         <span className=" text-xl md:text-2xl font-bold ml-1 md:ml-5">
-          Groups
+          {pageTitle()}
         </span>
-        <button className="border text-base rounded-full flex px-4 w-max  py-2 font-bold items-center mr-1 md:mr-5">
+        <button
+          onClick={handelOpenModle}
+          className="border hidden lg:flex text-base rounded-full  px-4 w-max  py-2 font-bold items-center mr-1 md:mr-5">
           <ClockIcon /> <span className="pl-1">New quiz</span>
         </button>
       </div>
@@ -70,10 +87,9 @@ const IconsBlock = () => {
 
 const ProfileInfo = () => {
   const [openModal, setOpenModal] = useState(false);
-  const userInfo = useSelector((state: RootState) => state.userInfo.value);
-
+  // const userInfo = useSelector((state: RootState) => state.userInfo.value);
+  const userInfo = JSON.parse(localStorage.getItem("loginInfo") || "{}");
   const navigate = useNavigate();
-  console.log(userInfo);
   const {
     register,
     formState: { errors, isSubmitting },
@@ -81,7 +97,6 @@ const ProfileInfo = () => {
     watch,
     setFocus,
   } = useForm();
-  console.log(openModal);
 
   const onSubmit: SubmitHandler<ChangePasswordReguest> = async (data) => {
     const toastId = toast.loading("Processing...");

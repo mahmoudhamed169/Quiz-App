@@ -11,7 +11,6 @@ interface IProps {
 }
 
 export default function QuizCard({ quiz, index }: IProps) {
-  console.log(index);
 
   function formatDateTime(dateString: string) {
     const date = new Date(dateString);

@@ -22,7 +22,6 @@ export default function QuestionData({
   mode,
   questionData,
 }: Props) {
-  console.log(questionData);
   const {
     register,
     formState: { errors, isSubmitting },

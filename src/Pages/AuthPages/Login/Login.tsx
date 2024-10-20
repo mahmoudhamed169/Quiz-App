@@ -44,6 +44,10 @@ export default function Login() {
       navigate("/dashboard");
 
       dispatch(setUserInfo(response.data.data.profile));
+      localStorage.setItem(
+        "loginInfo",
+        JSON.stringify(response.data.data.profile)
+      );
       toast.success("Login Successfully", {
         id: toastId,
       });

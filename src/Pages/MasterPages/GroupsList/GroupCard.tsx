@@ -15,7 +15,6 @@ interface Iprops {
 export default function GroupCard({ group, getAllGroups }: Iprops) {
   const [openModal, setOpenModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
-  console.log(group);
   const deleteGroup = async () => {
     const toastId = toast.loading("Processing...");
     try {

@@ -27,7 +27,6 @@ export default function ResetPassword() {
     password: string;
   }) => {
     const toastId = toast.loading("Processing...");
-    console.log(data);
     try {
       const { confirmPassword, ...submitData } = data;
       const response = await axios.post(
