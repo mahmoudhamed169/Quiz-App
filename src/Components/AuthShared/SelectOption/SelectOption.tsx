@@ -9,7 +9,6 @@ type SelectOptionProps = {
 
 const SelectOption = React.forwardRef<HTMLSelectElement, SelectOptionProps>(
   ({ label, error, ...props }, ref) => {
-    console.log(error);
     return (
       <div className="flex flex-col gap-2 mb-3">
         <label

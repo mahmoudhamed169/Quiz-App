@@ -92,7 +92,6 @@ export const GroupFormModal = ({
 
     try {
       if (unselectedStudents.length > 0) {
-        console.log(unselectedStudents);
         await Promise.all(
           unselectedStudents.map((studentId) =>
             deleteStudentFromGroup(studentId)

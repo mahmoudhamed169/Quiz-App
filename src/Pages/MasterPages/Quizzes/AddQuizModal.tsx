@@ -57,7 +57,6 @@ export default function AddQuizModal({ openModal, handelCloseModle }: Props) {
   useEffect(() => {
     getAllGroups();
   }, []);
-  console.log(groups);
   return (
     <Modal show={openModal} size="4xl" onClose={handelCloseModle} popup>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -206,7 +205,7 @@ export default function AddQuizModal({ openModal, handelCloseModle }: Props) {
                     required: "Group name is required",
                   })}
                 />
-                <ErrorSpan error={errors.group?.message?.toString()} />
+                <ErrorSpan error={errors.groupName?.message?.toString()} />
               </div>
             </div>
           </div>

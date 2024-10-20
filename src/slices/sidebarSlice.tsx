@@ -6,7 +6,6 @@ export const sidebarSlice = createSlice({
   reducers: {
     setCollapsed: (state) => {
       state.collpased = !state.collpased;
-      console.log(state);
     },
   },
 });

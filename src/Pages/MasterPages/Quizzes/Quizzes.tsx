@@ -11,6 +11,7 @@ import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import AddQuizModal from "./AddQuizModal";
+import Skeleton from "react-loading-skeleton";
 
 export const convertDate = (date: string) => {
   const dateFromApi = new Date(date);
@@ -25,9 +26,7 @@ export default function Quizzes() {
   const [completedQuiz, setCompletedQuiz] = useState<Quiz[]>([]);
   const [groupInfo, setGroupInfo] = useState<Group[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-
   const [loading, setLoading] = useState<boolean>(true);
-  const [totalCount, setTotalCount] = useState<number>(0);
 
   const handelOpenModle = () => {
     setOpenModal(true);
@@ -37,10 +36,8 @@ export default function Quizzes() {
     setOpenModal(false);
   };
   const getGroupInfo = async (id: string): Promise<Group[]> => {
-    console.log(id);
     try {
       const response = await apiClient.get<Group[]>(`group/${id}`);
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -58,6 +55,7 @@ export default function Quizzes() {
       );
       setCompletedQuiz(response.data);
       setGroupInfo(groupInformation.flat());
+      setLoading(false);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       toast.error(axiosError.response?.data?.message || "An error occurred");
@@ -89,7 +87,7 @@ export default function Quizzes() {
         </div>
 
         {/* Upcoming Quizzes */}
-        <div className=" lg:w-[50%] pl-2 lg:pl-0  pr-3">
+        <div className=" lg:w-[50%] pl-2 lg:pl-0  pr-3 pt-4 ">
           <UpcomingQuiz minHeight={"300px"} />
           <div className=" border p-7  mt-3 rounded-xl">
             <div className="flex justify-between items-center">
@@ -127,7 +125,26 @@ export default function Quizzes() {
                 </tr>
               </thead>
               <tbody>
-                {completedQuiz.length > 0 ? (
+                {loading ? (
+                  <tr>
+                    <td>
+                      <Skeleton width={150} />
+                      <Skeleton width={150} />
+                    </td>
+                    <td>
+                      <Skeleton width={150} />
+                      <Skeleton width={150} />
+                    </td>
+                    <td>
+                      <Skeleton width={150} />
+                      <Skeleton width={150} />
+                    </td>
+                    <td>
+                      <Skeleton width={150} />
+                      <Skeleton width={150} />
+                    </td>
+                  </tr>
+                ) : completedQuiz.length > 0 ? (
                   completedQuiz.map((quiz, index) => (
                     <tr key={index}>
                       <td className="py-2 px-4 border border-[#00000033] rounded-s">
@@ -151,6 +168,7 @@ export default function Quizzes() {
                     </td>
                   </tr>
                 )}
+                {}
               </tbody>
             </table>
           </div>
