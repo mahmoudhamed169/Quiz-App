@@ -32,7 +32,7 @@ export default function StudentCard({ student, index }: IProps) {
             <h6 className="text-lg font-bold">{`${student.first_name} ${student.last_name}`}</h6>
             <div className="flex gap-[10px]">
               <p className="font-normal text-xs">
-                Class rank: {student.group.name}
+                Class rank: {student?.group?.name}
               </p>
               <p className="font-normal text-xs">|</p>
               <p className="font-normal text-xs">
