@@ -4,6 +4,10 @@ import Pagination from "./Pagination";
 import TableSkeleton from "./TableSkeleton";
 import { useEffect, useState } from "react";
 import QuestionData from "./QuestionData";
+import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/DeleteModal";
+import toast from "react-hot-toast";
+import { apiClient } from "../../../Apis/EndPoints";
+import { AxiosError } from "axios";
 
 interface TableComponentProps {
   questions: IQuestion[];
@@ -22,6 +26,7 @@ export default function TableComponent({
   const [itemPerPage] = useState<number>(8);
   const [paginatedQuestions, setPaginatedQuestions] = useState<IQuestion[]>([]);
   const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedQuestionData, setSelectedQuestionData] =
     useState<IQuestion | null>(null); // State for selected question
   const [mode, setMode] = useState<"add" | "edit" | "view">("view"); // State for the modal mode
@@ -32,12 +37,14 @@ export default function TableComponent({
   ) => {
     if (question) {
       setSelectedQuestionData(question); // Set selected question data for viewing/editing
+      console.log(question);
     } else {
       setSelectedQuestionData(null); // Reset for adding a new question
     }
 
     if (mode) {
       setMode(mode); // Set mode to the passed mode
+      console.log(mode);
     }
 
     setOpenModal(true);
@@ -62,7 +69,28 @@ export default function TableComponent({
         .reverse()
     );
   }, [questions, itemPerPage, currentPage]);
+  const deleteQuestion = async () => {
+    const toastId = toast.loading("Processing...");
+    console.log("ddd");
+    try {
+      await apiClient.delete(`question/${selectedQuestionData?._id}`);
 
+      setOpenDeleteModal(false);
+      toast.success("Question deleted successfully", {
+        id: toastId,
+      });
+      getQuestions();
+      setOpenDeleteModal(false);
+    } catch (error) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      toast.error(axiosError.response?.data?.message || "An error occurred", {
+        id: toastId,
+      });
+    }
+  };
+  const test = () => {
+    console.log("clicked");
+  };
   return (
     <>
       {loading ? (
@@ -111,15 +139,26 @@ export default function TableComponent({
                     <button onClick={() => handelOpenModle(qus, "edit")}>
                       <FilePenLine className="hover:cursor-pointer" />
                     </button>
-                    <button>
-                      <Trash2 className="hover:cursor-pointer" />
+
+                    <button
+                      className="hover:cursor-pointer"
+                      onClick={() => {
+                        setOpenDeleteModal(true);
+                        setSelectedQuestionData(qus);
+                      }}>
+                      <Trash2 />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-
+          <DeleteModal
+            openModal={openDeleteModal}
+            setOpenModal={setOpenDeleteModal}
+            onConfirm={deleteQuestion}
+            title="question"
+          />
           <div className="flex justify-center mt-7">
             <Pagination
               totalCount={totalCount}

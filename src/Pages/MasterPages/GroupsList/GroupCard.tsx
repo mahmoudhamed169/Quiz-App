@@ -1,4 +1,4 @@
-import { FilePenLine, Trash } from "lucide-react";
+import { FilePenLine, Trash, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 import { ChangePasswordResponse, Group } from "../../../InterFaces/Interfaces";
 import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/DeleteModal";
@@ -49,7 +49,11 @@ export default function GroupCard({ group, getAllGroups }: Iprops) {
             onClick={() => setOpenUpdateModal(true)}
             cursor={"pointer"}
           />
-
+          <button
+            className="hover:cursor-pointer"
+            onClick={() => setOpenModal(true)}>
+            <Trash2 />
+          </button>
           <DeleteModal
             openModal={openModal}
             setOpenModal={setOpenModal}
