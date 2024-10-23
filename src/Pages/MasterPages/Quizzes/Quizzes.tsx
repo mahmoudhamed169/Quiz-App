@@ -12,13 +12,14 @@ import { Link } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import AddQuizModal from "./AddQuizModal";
 import Skeleton from "react-loading-skeleton";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 export default function Quizzes() {
   const [completedQuiz, setCompletedQuiz] = useState<Quiz[]>([]);
   const [groupInfo, setGroupInfo] = useState<Group[]>([]);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
 
+  const [loading, setLoading] = useState<boolean>(true);
+  const { openModal, setOpenModal, modalRef } = useOpenCloseModal();
   const handelOpenModle = () => {
     setOpenModal(true);
   };
@@ -67,7 +68,11 @@ export default function Quizzes() {
   }, []);
   return (
     <div>
-      <AddQuizModal openModal={openModal} handelCloseModle={handelCloseModle} />
+      <AddQuizModal
+        openModal={openModal}
+        handelCloseModle={handelCloseModle}
+        modalRef={modalRef}
+      />
       <div className="flex flex-col lg:flex-row gap-9">
         {/* Add Quiz */}
         <div className="lg:w-[50%] pl-2 lg:pl-3 pt-4 pr-3 lg:pr-0 flex flex-row gap-7 h-max">

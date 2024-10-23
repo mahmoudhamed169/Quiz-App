@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 export default function useOpenCloseModal() {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  console.log("clicked");
-  console.log(openModal);
+
   const handelOpenModle = () => {
     setOpenModal(true);
   };
