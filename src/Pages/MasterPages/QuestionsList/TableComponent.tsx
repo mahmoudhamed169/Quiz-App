@@ -8,6 +8,7 @@ import { DeleteModal } from "../../../Components/MasterShared/DeleteModal/Delete
 import toast from "react-hot-toast";
 import { apiClient } from "../../../Apis/EndPoints";
 import { AxiosError } from "axios";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 interface TableComponentProps {
   questions: IQuestion[];
@@ -25,33 +26,52 @@ export default function TableComponent({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemPerPage] = useState<number>(8);
   const [paginatedQuestions, setPaginatedQuestions] = useState<IQuestion[]>([]);
-  const [openModal, setOpenModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
   const [selectedQuestionData, setSelectedQuestionData] =
     useState<IQuestion | null>(null); // State for selected question
   const [mode, setMode] = useState<"add" | "edit" | "view">("view"); // State for the modal mode
-
+  const {
+    openModal: openEditModal,
+    setOpenModal: setOpenEditModal,
+    modalRef: editModalRef,
+  } = useOpenCloseModal();
+  const {
+    openModal: openViewModal,
+    setOpenModal: setOpenViewModal,
+    modalRef: viewModalRef,
+  } = useOpenCloseModal();
+  const {
+    openModal: openDeleteModal,
+    setOpenModal: setOpenDeleteModal,
+    modalRef: deleteModalRef,
+  } = useOpenCloseModal();
   const handelOpenModle = (
     question?: IQuestion,
     mode?: "add" | "edit" | "view"
   ) => {
     if (question) {
       setSelectedQuestionData(question); // Set selected question data for viewing/editing
-      console.log(question);
+      if (mode === "view") {
+        setOpenViewModal(true);
+        console.log(mode);
+      } else {
+        setOpenEditModal(true);
+      }
     } else {
       setSelectedQuestionData(null); // Reset for adding a new question
     }
 
     if (mode) {
       setMode(mode); // Set mode to the passed mode
-      console.log(mode);
     }
 
-    setOpenModal(true);
+    // setOpenEditModal(false);
+    // setOpenViewModal(false);
   };
 
   const handelCloseModle = () => {
-    setOpenModal(false);
+    setOpenEditModal(false);
+    setOpenViewModal(false);
     setSelectedQuestionData(null);
     setMode("view"); // Reset mode to view when closing
   };
@@ -88,9 +108,7 @@ export default function TableComponent({
       });
     }
   };
-  const test = () => {
-    console.log("clicked");
-  };
+
   return (
     <>
       {loading ? (
@@ -157,6 +175,7 @@ export default function TableComponent({
             openModal={openDeleteModal}
             setOpenModal={setOpenDeleteModal}
             onConfirm={deleteQuestion}
+            modalRef={deleteModalRef}
             title="question"
           />
           <div className="flex justify-center mt-7">
@@ -171,7 +190,8 @@ export default function TableComponent({
       )}
       <QuestionData
         handelCloseModle={handelCloseModle}
-        openModal={openModal}
+        openModal={mode === "edit" ? openEditModal : openViewModal}
+        modalRef={mode === "edit" ? editModalRef : viewModalRef}
         mode={mode} // Pass the current mode
         questionData={selectedQuestionData}
         getQuestions={getQuestions}

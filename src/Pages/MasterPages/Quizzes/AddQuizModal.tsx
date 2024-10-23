@@ -4,16 +4,21 @@ import { FieldValues, useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { apiClient } from "../../../Apis/EndPoints";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { Group, QuizRequest } from "../../../InterFaces/Interfaces";
 import { SelectInput } from "./SelectInput";
 
 interface Props {
   handelCloseModle: () => void;
   openModal: boolean;
+  modalRef: RefObject<HTMLDivElement>;
 }
 
-export default function AddQuizModal({ openModal, handelCloseModle }: Props) {
+export default function AddQuizModal({
+  openModal,
+  handelCloseModle,
+  modalRef,
+}: Props) {
   const {
     register,
     formState: { errors, isSubmitting },
@@ -58,7 +63,12 @@ export default function AddQuizModal({ openModal, handelCloseModle }: Props) {
     getAllGroups();
   }, []);
   return (
-    <Modal show={openModal} size="4xl" onClose={handelCloseModle} popup>
+    <Modal
+      show={openModal}
+      size="4xl"
+      onClose={handelCloseModle}
+      popup
+      ref={modalRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between border-b items-center">
           <h5 className="font-bold text-xl leading-6 p-5">Set up a new quiz</h5>

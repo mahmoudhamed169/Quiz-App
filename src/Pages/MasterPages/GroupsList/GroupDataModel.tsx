@@ -1,5 +1,5 @@
 import { Modal } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import CustomBtn from "../../../Components/MasterShared/CustomBtn/CustomBtn";
 import { Student } from "../../../InterFaces/Interfaces";
 // import { apiClient } from "../../../Apis/EndPoints";
@@ -9,19 +9,29 @@ import { useForm } from "react-hook-form";
 import { Loader } from "lucide-react";
 import { apiClient } from "./../../../Apis/EndPoints";
 import { Group } from "../../../InterFaces/Interfaces";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 export default function GroupDataModel({
   getAllGroups,
 }: {
   getAllGroups: () => void;
 }) {
-  const [openModal, setOpenModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
+  const {
+    openModal: openAddModal,
+    setOpenModal: setOpenAddModal,
+    modalRef: updateModalRef,
+    handelOpenModle: handelOpenUpdateModal,
+    handelCloseModle: handelCloseUpdateModal,
+  } = useOpenCloseModal();
+
   return (
     <>
-      <CustomBtn text="Add Group" onClick={() => setOpenModal(true)} />
+      <CustomBtn text="Add Group" onClick={() => setOpenAddModal(true)} />
       <GroupFormModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+        openModal={openAddModal}
+        setOpenModal={setOpenAddModal}
+        modalRef={updateModalRef}
         getAllGroups={getAllGroups}
       />
     </>
@@ -32,12 +42,14 @@ export const GroupFormModal = ({
   getAllGroups,
   openModal,
   setOpenModal,
+  modalRef,
   group,
 }: {
   getAllGroups: () => void;
   openModal?: boolean;
   setOpenModal: (value: boolean) => void;
   group?: Group;
+  modalRef: RefObject<HTMLDivElement>;
 }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [allStudent, setAllStudent] = useState<Student[]>([]);
@@ -158,11 +170,11 @@ export const GroupFormModal = ({
   }, []);
 
   return (
-    <Modal show={openModal} onClose={handleCloseModal}>
+    <Modal show={openModal} onClose={handleCloseModal} ref={modalRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between border-b items-center ">
           <h5 className="font-bold text-xl leading-6 p-5">
-            Set up a new Group
+            {group ? "Update group" : "Set up a new Group "}
           </h5>
           <div className="flex">
             <button

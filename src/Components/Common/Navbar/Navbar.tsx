@@ -20,9 +20,11 @@ import PasswordInput from "../../AuthShared/PasswordInput/PasswordInput";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Redux/store";
 import AddQuizModal from "../../../Pages/MasterPages/Quizzes/AddQuizModal";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 export default function NavBar() {
   const { pathname } = useLocation();
-  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const { openModal, setOpenModal, modalRef } = useOpenCloseModal();
   const handelOpenModle = () => {
     setOpenModal(true);
   };
@@ -46,7 +48,11 @@ export default function NavBar() {
         }`}>
         <BlackLogo />
       </div>
-      <AddQuizModal openModal={openModal} handelCloseModle={handelCloseModle} />
+      <AddQuizModal
+        openModal={openModal}
+        handelCloseModle={handelCloseModle}
+        modalRef={modalRef}
+      />
       <div className="flex justify-between border-x gap-4  flex-1 h-full items-center">
         <span className=" text-xl md:text-2xl font-bold ml-1 md:ml-5">
           {pageTitle()}

@@ -1,3 +1,5 @@
+import { RefObject } from "react";
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -94,6 +96,7 @@ export interface DeleteModalType {
   openModal: boolean;
   onConfirm: () => void;
   title: string;
+  modalRef: RefObject<HTMLDivElement>;
 }
 
 interface Options {
