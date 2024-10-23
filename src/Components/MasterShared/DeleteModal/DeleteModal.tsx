@@ -1,5 +1,5 @@
 import { Button, Modal } from "flowbite-react";
-import { Trash } from "lucide-react";
+import { Trash, Trash2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { DeleteModalType } from "../../../InterFaces/Interfaces";
@@ -20,6 +20,7 @@ export function DeleteModal({
         !modalRef.current.contains(event.target as Node)
       ) {
         setOpenModal(false);
+        console.log(modalRef);
       }
     };
 
@@ -33,7 +34,6 @@ export function DeleteModal({
   }, [openModal, setOpenModal]);
   return (
     <>
-      <Trash cursor={"pointer"} onClick={() => setOpenModal(true)} />
       <Modal show={openModal} size="md" ref={modalRef} popup>
         <Modal.Header onClick={() => setOpenModal(false)} />
         <Modal.Body>
