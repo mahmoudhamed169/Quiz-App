@@ -6,13 +6,13 @@ import { IQuestion } from "../../../InterFaces/Interfaces"; // Make sure to impo
 import { apiClient } from "../../../Apis/EndPoints";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 export default function QuestionsList() {
-  const [openModal, setOpenModal] = useState(false);
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [totalCount, setTotalCount] = useState<number>(0);
-
+  const { openModal, setOpenModal, modalRef } = useOpenCloseModal();
   const handelOpenModle = () => {
     setOpenModal(true);
   };
@@ -44,6 +44,7 @@ export default function QuestionsList() {
       <QuestionData
         handelCloseModle={handelCloseModle}
         openModal={openModal}
+        modalRef={modalRef}
         getQuestions={getQuestions}
         mode="add"
       />

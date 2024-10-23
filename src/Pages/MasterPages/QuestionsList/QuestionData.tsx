@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
 import { apiClient } from "../../../Apis/EndPoints";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { RefObject, useEffect } from "react";
 import { IQuestion } from "../../../InterFaces/Interfaces";
 
 interface Props {
@@ -13,6 +13,7 @@ interface Props {
   getQuestions: () => void;
   mode: "view" | "edit" | "add";
   questionData?: IQuestion;
+  modalRef: RefObject<HTMLDivElement>;
 }
 
 export default function QuestionData({
@@ -21,6 +22,7 @@ export default function QuestionData({
   getQuestions,
   mode,
   questionData,
+  modalRef,
 }: Props) {
   const {
     register,
@@ -30,6 +32,7 @@ export default function QuestionData({
     setValue,
   } = useForm<QuestionData>();
 
+  console.log(openModal);
   useEffect(() => {
     if (questionData) {
       setValue("title", questionData.title);
@@ -109,7 +112,12 @@ export default function QuestionData({
   const isReadOnly = mode === "view" || (mode === "edit" && true);
 
   return (
-    <Modal show={openModal} size="4xl" onClose={handleClose} popup>
+    <Modal
+      show={openModal}
+      size="4xl"
+      onClose={handleClose}
+      popup
+      ref={modalRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between border-b items-center">
           <h5 className="font-bold text-xl leading-6 p-5">
@@ -124,16 +132,14 @@ export default function QuestionData({
               <button
                 type="submit"
                 className="text-2xl font-extrabold w-[80px] h-full border-l py-5"
-                disabled={isSubmitting}
-              >
+                disabled={isSubmitting}>
                 {isSubmitting ? <Loader className="loader-spin m-auto" /> : "✓"}
               </button>
             )}
             <button
               type="button"
               className="text-2xl font-extrabold border-l py-5 w-[80px]"
-              onClick={handleClose}
-            >
+              onClick={handleClose}>
               {"✗"}
             </button>
           </div>
@@ -225,8 +231,7 @@ export default function QuestionData({
                   {...register("answer", {
                     required: "Answer is required",
                   })}
-                  disabled={mode === "view"}
-                >
+                  disabled={mode === "view"}>
                   <option value="">Select Answer</option>
                   {["A", "B", "C", "D"].map((option) => (
                     <option key={option} value={option}>
@@ -255,8 +260,7 @@ export default function QuestionData({
                     {...register("difficulty", {
                       required: "Difficulty is required",
                     })}
-                    disabled={isReadOnly}
-                  >
+                    disabled={isReadOnly}>
                     <option value="">Select Difficulty</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>
@@ -283,8 +287,7 @@ export default function QuestionData({
                     {...register("type", {
                       required: "Type is required",
                     })}
-                    disabled={isReadOnly}
-                  >
+                    disabled={isReadOnly}>
                     <option value="">Select Type</option>
                     <option value="BE">Back-End</option>
                     <option value="FE">Front-End</option>

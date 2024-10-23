@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { apiClient, AUTHENTICATION_URLS } from "../../../Apis/EndPoints";
 import { GroupFormModal } from "./GroupDataModel";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 interface Iprops {
   group: Group;
@@ -13,19 +14,37 @@ interface Iprops {
 }
 
 export default function GroupCard({ group, getAllGroups }: Iprops) {
-  const [openModal, setOpenModal] = useState(false);
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
+  // const [openUpdateModal, setOpenUpdateModal] = useState(false);
+
+  // Hook for Delete Modal
+  const {
+    openModal: openDeleteModal,
+    setOpenModal: setOpenDeleteModal,
+    modalRef: deleteModalRef,
+    handelOpenModle: handelOpenDeleteModal,
+    handelCloseModle: handelCloseDeleteModal,
+  } = useOpenCloseModal();
+
+  // Hook for Update Modal
+  const {
+    openModal: openUpdateModal,
+    setOpenModal: setOpenUpdateModal,
+    modalRef: updateModalRef,
+    handelOpenModle: handelOpenUpdateModal,
+    handelCloseModle: handelCloseUpdateModal,
+  } = useOpenCloseModal();
   const deleteGroup = async () => {
     const toastId = toast.loading("Processing...");
     try {
       await apiClient.delete(`group/${group._id}`);
 
-      setOpenModal(false);
+      setOpenUpdateModal(false);
       toast.success("Group deleted successfully", {
         id: toastId,
       });
       getAllGroups();
-      setOpenModal(false);
+      setOpenUpdateModal(false);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       toast.error(axiosError.response?.data?.message || "An error occurred", {
@@ -49,14 +68,16 @@ export default function GroupCard({ group, getAllGroups }: Iprops) {
             onClick={() => setOpenUpdateModal(true)}
             cursor={"pointer"}
           />
-          <button
-            className="hover:cursor-pointer"
-            onClick={() => setOpenModal(true)}>
-            <Trash2 />
+          <button>
+            <Trash2
+              className="hover:cursor-pointer"
+              onClick={() => setOpenDeleteModal(true)}
+            />
           </button>
           <DeleteModal
-            openModal={openModal}
-            setOpenModal={setOpenModal}
+            openModal={openDeleteModal}
+            setOpenModal={setOpenDeleteModal}
+            modalRef={deleteModalRef}
             onConfirm={deleteGroup}
             title="group"
           />
@@ -65,6 +86,7 @@ export default function GroupCard({ group, getAllGroups }: Iprops) {
             group={group}
             openModal={openUpdateModal}
             setOpenModal={setOpenUpdateModal}
+            modalRef={updateModalRef}
           />
         </div>
       </div>

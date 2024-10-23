@@ -4,37 +4,19 @@ import { useEffect, useRef, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { DeleteModalType } from "../../../InterFaces/Interfaces";
 import deleteImg from "../../../../src/assets/delete.png";
+import useOpenCloseModal from "../../../Hooks/useClickOutside";
 
 export function DeleteModal({
-  setOpenModal,
-  openModal,
   onConfirm,
   title,
+  openModal,
+  setOpenModal,
+  modalRef,
 }: DeleteModalType) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        setOpenModal(false);
-        console.log(modalRef);
-      }
-    };
-
-    if (openModal) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [openModal, setOpenModal]);
+  console.log(openModal);
   return (
     <>
-      <Modal show={openModal} size="md" ref={modalRef} popup>
+      <Modal show={openModal} size="md" popup ref={modalRef}>
         <Modal.Header onClick={() => setOpenModal(false)} />
         <Modal.Body>
           <div className="text-center">
