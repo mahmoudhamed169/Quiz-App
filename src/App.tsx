@@ -43,6 +43,7 @@ function App() {
         { path: "questions", element: <QuestionsList /> },
         { path: "results", element: <Result /> },
         { path: "quizzes", element: <Quizzes /> },
+
         { path: "students", element: <StudententsList /> },
       ],
     },
