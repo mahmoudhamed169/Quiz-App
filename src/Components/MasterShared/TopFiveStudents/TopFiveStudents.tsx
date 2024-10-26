@@ -38,8 +38,9 @@ export default function TopFiveStudents() {
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-medium">Top 5 Students </h6>
             <Link
-              to={"/dashboard/home"}
-              className="flex gap-1 items-center font-normal text-xs">
+              to={"/dashboard/Students"}
+              className="flex gap-1 items-center font-normal text-xs"
+            >
               All Students
               <MoveRight color="#C5D86D" height={"30px"} width={"18.31px"} />
             </Link>
