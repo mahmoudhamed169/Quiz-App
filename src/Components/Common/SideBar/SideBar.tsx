@@ -23,7 +23,9 @@ const SideBar = () => {
   const handleToggle = () => {
     dispatch(setCollapsed());
   };
-
+  const isInstructor =
+    JSON.parse(localStorage.getItem("loginInfo") || "{}")?.role ===
+    "Instructor";
   return (
     <>
       <Sidebar
@@ -43,12 +45,21 @@ const SideBar = () => {
             </p>
           </MenuItem>
 
-          <CustomMenuItem title="dashboard" icon={<DashboardIcon />} />
-          <CustomMenuItem title="Students" icon={<StudentsIcon />} />
-          <CustomMenuItem title="Groups" icon={<GroupsIcon />} />
+          {isInstructor ? (
+            <>
+              {" "}
+              <CustomMenuItem title="dashboard" icon={<DashboardIcon />} />
+              <CustomMenuItem title="Students" icon={<StudentsIcon />} />
+              <CustomMenuItem title="Questions" icon={<QuestionsIcon />} />
+              <CustomMenuItem title="Groups" icon={<GroupsIcon />} />
+            </>
+          ) : (
+            ""
+          )}
+
           <CustomMenuItem title="Quizzes" icon={<QuizIcon />} />
-          <CustomMenuItem title="Questions" icon={<QuestionsIcon />} />
           <CustomMenuItem title="Results" icon={<ResultsIcon />} />
+
           <CustomMenuItem title="help" icon={<HelpIcon />} />
         </Menu>
       </Sidebar>
