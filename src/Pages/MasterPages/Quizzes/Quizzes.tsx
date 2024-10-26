@@ -8,7 +8,7 @@ import { apiClient } from "../../../Apis/EndPoints";
 import { Group, Quiz } from "../../../InterFaces/Interfaces";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MoveRight } from "lucide-react";
 import AddQuizModal from "./AddQuizModal";
 import Skeleton from "react-loading-skeleton";
@@ -29,6 +29,7 @@ export default function Quizzes() {
 
   const [loading, setLoading] = useState<boolean>(true);
   const { openModal, setOpenModal, modalRef } = useOpenCloseModal();
+  const navigate = useNavigate();
   const handelOpenModle = () => {
     setOpenModal(true);
   };
@@ -50,19 +51,20 @@ export default function Quizzes() {
   const getCompletedQuizzes = async () => {
     try {
       const response = await apiClient.get<Quiz[]>("quiz/completed");
+      console.log(response.data);
 
-      const groupInformation = await Promise.all(
-        response.data.map((quiz) => getGroupInfo(quiz.group))
-      );
+      // const groupInformation = await Promise.all(
+      //   response.data.map((quiz) => getGroupInfo(quiz.group))
+      // );
       setCompletedQuiz(response.data);
-      setGroupInfo(groupInformation.flat());
+      // setGroupInfo(groupInformation.flat());
       setLoading(false);
     } catch (error) {
+      console.log(error);
       const axiosError = error as AxiosError<{ message: string }>;
-      toast.error(axiosError.response?.data?.message || "An error occurred");
+      // toast.error(axiosError.response?.data?.message || "An error occurred");
     }
   };
-
 
   useEffect(() => {
     getCompletedQuizzes();
@@ -79,12 +81,16 @@ export default function Quizzes() {
         <div className="lg:w-[50%] pl-2 lg:pl-3 pt-4 pr-3 lg:pr-0 flex flex-row gap-7 h-max">
           <button
             onClick={handelOpenModle}
-            className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]">
+            className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]"
+          >
             <ClockIcon className="w-[40px] h-[40px]" />
 
             <span className="font-bold mt-2 lg:text-xl">Set up a new quiz</span>
           </button>
-          <button className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]">
+          <button
+            className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]"
+            onClick={() => navigate("/dashboard/Questions")}
+          >
             <QuestionBankIcon className="w-[40px] h-[40px]" />
 
             <span className="font-bold mt-2 lg:text-xl">Question Bank</span>
@@ -101,7 +107,8 @@ export default function Quizzes() {
               <div className="flex justify-between items-center">
                 <Link
                   to={"/dashboard/results"}
-                  className="flex gap-1 items-center font-normal text-xs">
+                  className="flex gap-1 items-center font-normal text-xs"
+                >
                   Results
                   <MoveRight
                     color="#C5D86D"
@@ -116,16 +123,16 @@ export default function Quizzes() {
               <thead className="text-[#ffff] text-left border ">
                 <tr>
                   <th className="bg-[#0D1321] font-normal py-2 text-xs rounded-s px-4 ">
-                    Title
+                    <p className="flex justify-center">Title</p>
                   </th>
                   <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    Group Name
+                    <p className="flex justify-center"> code</p>
                   </th>
                   <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    No. of persons in group
+                    <p className="flex justify-center">Status</p>
                   </th>
                   <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    Date
+                    <p className="flex justify-center"> Date</p>
                   </th>
                 </tr>
               </thead>
@@ -153,16 +160,24 @@ export default function Quizzes() {
                   completedQuiz.map((quiz, index) => (
                     <tr key={index}>
                       <td className="py-2 px-4 border border-[#00000033] rounded-s">
-                        {quiz.title}
+                        <p className="flex justify-center"> {quiz.title}</p>
                       </td>
                       <td className="py-2 px-4 border border-[#00000033]">
-                        {groupInfo[index]?.name || "N/A"}
+                        <p className="flex justify-center">
+                          {quiz.code || "N/A"}
+                        </p>
+                      </td>
+                      <td className="py-2 px-4 border border-[#00000033] ">
+                        <div className="flex justify-center">
+                          <p className="bg-red-300 text-red-600 rounded-lg flex justify-center  p-1 w-20">
+                            {quiz.status}
+                          </p>
+                        </div>
                       </td>
                       <td className="py-2 px-4 border border-[#00000033]">
-                        {groupInfo[index]?.students.length || 0}
-                      </td>
-                      <td className="py-2 px-4 border border-[#00000033]">
-                        {convertDate(quiz.updatedAt)}
+                        <p className="flex justify-center">
+                          {convertDate(quiz.updatedAt)}
+                        </p>
                       </td>
                     </tr>
                   ))
