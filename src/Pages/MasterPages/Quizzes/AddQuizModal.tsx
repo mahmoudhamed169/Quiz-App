@@ -12,12 +12,16 @@ interface Props {
   handelCloseModle: () => void;
   openModal: boolean;
   modalRef: RefObject<HTMLDivElement>;
+  setQuizCode: (value: string) => void;
+  setOpenQuizCodeModal: (value: boolean) => void;
 }
 
 export default function AddQuizModal({
   openModal,
   handelCloseModle,
   modalRef,
+  setQuizCode,
+  setOpenQuizCodeModal,
 }: Props) {
   const {
     register,
@@ -33,8 +37,8 @@ export default function AddQuizModal({
       const group = groups.find((group) => group.name == groupName);
       const schadule = `${Date}T${time}:00`;
       const finalData = { group: group?._id, schadule, ...other };
-      await apiClient.post<QuizRequest>("quiz", finalData);
-
+      const response = await apiClient.post<QuizRequest>("quiz", finalData);
+      console.log(response);
       toast.success("Quiz Created Successfully", {
         id: toastId,
       });
@@ -42,6 +46,8 @@ export default function AddQuizModal({
       setTimeout(() => {
         reset();
         handelCloseModle();
+        setOpenQuizCodeModal(true);
+        setQuizCode(response.data.data.code);
       }, 500);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
@@ -75,9 +81,7 @@ export default function AddQuizModal({
           <div className="flex">
             <button
               type="submit"
-              className={`text-2xl font-extrabold w-[80px] h-full border-l py-5${
-                isSubmitting ? "cursor-not-allowed" : ""
-              }`}
+              className={`text-2xl font-extrabold w-[80px] h-full border-l py-5`}
               disabled={isSubmitting}>
               {isSubmitting ? <Loader className="loader-spin m-auto" /> : "✓"}
             </button>

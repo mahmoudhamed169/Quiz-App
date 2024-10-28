@@ -47,8 +47,7 @@ export default function NavBar() {
       <div
         className={`px-8 delay-500 transition-all ${
           isCollapsed ? "ml-0" : "-ml-36"
-        }`}
-      >
+        }`}>
         <BlackLogo />
       </div>
       <AddQuizModal
@@ -62,8 +61,7 @@ export default function NavBar() {
         </span>
         <button
           onClick={handelOpenModle}
-          className="border hidden lg:flex text-base rounded-full  px-4 w-max  py-2 font-bold items-center mr-1 md:mr-5"
-        >
+          className="border hidden lg:flex text-base rounded-full  px-4 w-max  py-2 font-bold items-center mr-1 md:mr-5">
           <ClockIcon /> <span className="pl-1">New quiz</span>
         </button>
       </div>
@@ -144,10 +142,9 @@ const ProfileInfo = () => {
       <Dropdown dismissOnClick={false} inline size="xl" placement="bottom">
         <Dropdown.Item
           onClick={() => {
-            localStorage.removeItem("token");
+            localStorage.removeItem("userToken");
             navigate("/login");
-          }}
-        >
+          }}>
           Sign out
         </Dropdown.Item>
         <Dropdown.Item as={"span"} onClick={() => setOpenModal(true)}>
@@ -158,8 +155,7 @@ const ProfileInfo = () => {
         show={openModal}
         size="3xl"
         onClose={() => setOpenModal(false)}
-        popup
-      >
+        popup>
         <Modal.Header className="bg-[#0D1321]" />
         <Modal.Body className="bg-[#0D1321]">
           <div>
@@ -171,8 +167,7 @@ const ProfileInfo = () => {
             </p>
             <form
               className="my-7 flex flex-col gap-3"
-              onSubmit={handleSubmit(onSubmit)}
-            >
+              onSubmit={handleSubmit(onSubmit)}>
               <PasswordInput
                 label="Password"
                 error={

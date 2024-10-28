@@ -33,16 +33,14 @@ export default function Pagination({
                 currentPage === 1
                   ? "cursor-not-allowed opacity-50"
                   : "hover:bg-gray-100 hover:text-gray-700"
-              }    flex  items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-            >
+              }    flex  items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500  border border-e-0 border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
               <span className="sr-only">Previous</span>
               <svg
                 className="w-2.5 h-2.5 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="0 0 6 10"
-              >
+                viewBox="0 0 6 10">
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"
@@ -63,8 +61,7 @@ export default function Pagination({
                   currentPage === i + 1
                     ? "bg-slate-800 text-white"
                     : "hover:bg-gray-100 hover:text-gray-700"
-                } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-              >
+                } flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
                 {i + 1}
               </button>
             </li>
@@ -78,16 +75,14 @@ export default function Pagination({
                 currentPage === totalPages
                   ? "cursor-not-allowed opacity-50"
                   : "hover:bg-gray-100 hover:text-gray-700"
-              } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}
-            >
+              } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`}>
               <span className="sr-only">Next</span>
               <svg
                 className="w-2.5 h-2.5 rtl:rotate-180"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
-                viewBox="0 0 6 10"
-              >
+                viewBox="0 0 6 10">
                 <path
                   stroke="currentColor"
                   strokeLinecap="round"
