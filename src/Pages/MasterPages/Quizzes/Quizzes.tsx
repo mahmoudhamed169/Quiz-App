@@ -13,6 +13,8 @@ import { MoveRight } from "lucide-react";
 import AddQuizModal from "./AddQuizModal";
 import Skeleton from "react-loading-skeleton";
 import useOpenCloseModal from "../../../Hooks/useClickOutside";
+import QuizCodeModal from "./QuizCodeModal";
+import Pagination from "../QuestionsList/Pagination";
 
 export const convertDate = (date: string) => {
   const dateFromApi = new Date(date);
@@ -25,10 +27,18 @@ export const convertDate = (date: string) => {
 };
 export default function Quizzes() {
   const [completedQuiz, setCompletedQuiz] = useState<Quiz[]>([]);
-  const [groupInfo, setGroupInfo] = useState<Group[]>([]);
-
+  const [quizCode, setQuizCode] = useState<string>("");
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemPerPage] = useState<number>(3);
+  const [paginatedQuizzes, setPaginatedQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { openModal, setOpenModal, modalRef } = useOpenCloseModal();
+  const {
+    openModal: openQuizCodeModal,
+    setOpenModal: setOpenQuizCodeModal,
+    modalRef: quizCodeModalRef,
+  } = useOpenCloseModal();
   const navigate = useNavigate();
   const handelOpenModle = () => {
     setOpenModal(true);
@@ -37,60 +47,52 @@ export default function Quizzes() {
   const handelCloseModle = () => {
     setOpenModal(false);
   };
-  const getGroupInfo = async (id: string): Promise<Group[]> => {
-    try {
-      const response = await apiClient.get<Group[]>(`group/${id}`);
 
-      return response.data;
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      toast.error(axiosError.response?.data?.message || "An error occurred");
-      return [];
-    }
-  };
   const getCompletedQuizzes = async () => {
     try {
       const response = await apiClient.get<Quiz[]>("quiz/completed");
       console.log(response.data);
 
-      // const groupInformation = await Promise.all(
-      //   response.data.map((quiz) => getGroupInfo(quiz.group))
-      // );
       setCompletedQuiz(response.data);
-      // setGroupInfo(groupInformation.flat());
+      setTotalCount(response.data.length);
       setLoading(false);
     } catch (error) {
       console.log(error);
       const axiosError = error as AxiosError<{ message: string }>;
-      // toast.error(axiosError.response?.data?.message || "An error occurred");
+      toast.error(axiosError.response?.data?.message || "An error occurred");
     }
   };
 
   useEffect(() => {
     getCompletedQuizzes();
   }, []);
+  useEffect(() => {
+    const totalItems = completedQuiz.length;
+    const startIndex = totalItems - currentPage * itemPerPage;
+
+    setPaginatedQuizzes(
+      completedQuiz.slice(
+        Math.max(startIndex, 0),
+        totalItems - (currentPage - 1) * itemPerPage
+      )
+    );
+  }, [completedQuiz, currentPage]);
+  console.log(paginatedQuizzes);
   return (
     <div>
-      <AddQuizModal
-        openModal={openModal}
-        handelCloseModle={handelCloseModle}
-        modalRef={modalRef}
-      />
       <div className="flex flex-col lg:flex-row gap-9">
         {/* Add Quiz */}
         <div className="lg:w-[50%] pl-2 lg:pl-3 pt-4 pr-3 lg:pr-0 flex flex-row gap-7 h-max">
           <button
             onClick={handelOpenModle}
-            className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]"
-          >
+            className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]">
             <ClockIcon className="w-[40px] h-[40px]" />
 
             <span className="font-bold mt-2 lg:text-xl">Set up a new quiz</span>
           </button>
           <button
             className="flex items-center flex-col border rounded-lg p-3 lg:p-8 w-[50%]"
-            onClick={() => navigate("/dashboard/Questions")}
-          >
+            onClick={() => navigate("/dashboard/Questions")}>
             <QuestionBankIcon className="w-[40px] h-[40px]" />
 
             <span className="font-bold mt-2 lg:text-xl">Question Bank</span>
@@ -107,8 +109,7 @@ export default function Quizzes() {
               <div className="flex justify-between items-center">
                 <Link
                   to={"/dashboard/results"}
-                  className="flex gap-1 items-center font-normal text-xs"
-                >
+                  className="flex gap-1 items-center font-normal text-xs">
                   Results
                   <MoveRight
                     color="#C5D86D"
@@ -122,64 +123,29 @@ export default function Quizzes() {
             <table className="w-full mt-5 border-separate">
               <thead className="text-[#ffff] text-left border ">
                 <tr>
-                  <th className="bg-[#0D1321] font-normal py-2 text-xs rounded-s px-4 ">
-                    <p className="flex justify-center">Title</p>
-                  </th>
-                  <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    <p className="flex justify-center"> code</p>
-                  </th>
-                  <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    <p className="flex justify-center">Status</p>
-                  </th>
-                  <th className="bg-[#0D1321] font-normal py-2 text-xs px-4 ">
-                    <p className="flex justify-center"> Date</p>
-                  </th>
+                  {["Title", "Code", "Status", "Date"].map((heading, index) => (
+                    <th
+                      key={index}
+                      className={`bg-[#0D1321] font-normal py-2 text-xs ${
+                        index === 0 ? "rounded-s" : ""
+                      }  px-4 `}>
+                      <p className="flex justify-center">{heading}</p>
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td>
-                      <Skeleton width={150} />
-                      <Skeleton width={150} />
-                    </td>
-                    <td>
-                      <Skeleton width={150} />
-                      <Skeleton width={150} />
-                    </td>
-                    <td>
-                      <Skeleton width={150} />
-                      <Skeleton width={150} />
-                    </td>
-                    <td>
-                      <Skeleton width={150} />
-                      <Skeleton width={150} />
-                    </td>
+                    {Array(4)
+                      .fill(null)
+                      .map(() => (
+                        <SkeletonRow />
+                      ))}
                   </tr>
-                ) : completedQuiz.length > 0 ? (
-                  completedQuiz.map((quiz, index) => (
-                    <tr key={index}>
-                      <td className="py-2 px-4 border border-[#00000033] rounded-s">
-                        <p className="flex justify-center"> {quiz.title}</p>
-                      </td>
-                      <td className="py-2 px-4 border border-[#00000033]">
-                        <p className="flex justify-center">
-                          {quiz.code || "N/A"}
-                        </p>
-                      </td>
-                      <td className="py-2 px-4 border border-[#00000033] ">
-                        <div className="flex justify-center">
-                          <p className="bg-red-300 text-red-600 rounded-lg flex justify-center  p-1 w-20">
-                            {quiz.status}
-                          </p>
-                        </div>
-                      </td>
-                      <td className="py-2 px-4 border border-[#00000033]">
-                        <p className="flex justify-center">
-                          {convertDate(quiz.updatedAt)}
-                        </p>
-                      </td>
-                    </tr>
+                ) : paginatedQuizzes.length > 0 ? (
+                  paginatedQuizzes.map((quiz, index) => (
+                    <QuizRow quiz={quiz} key={index} />
                   ))
                 ) : (
                   <tr>
@@ -191,9 +157,63 @@ export default function Quizzes() {
                 {}
               </tbody>
             </table>
+            <div className="flex justify-center mt-7">
+              <Pagination
+                totalCount={totalCount}
+                setCurrentPage={setCurrentPage}
+                itemPerPage={itemPerPage}
+                currentPage={currentPage}
+              />
+            </div>
           </div>
         </div>
       </div>
+      <AddQuizModal
+        openModal={openModal}
+        handelCloseModle={handelCloseModle}
+        modalRef={modalRef}
+        setOpenQuizCodeModal={setOpenQuizCodeModal}
+        setQuizCode={setQuizCode}
+      />
+      <QuizCodeModal
+        code={quizCode}
+        openModal={openQuizCodeModal}
+        handelCloseModle={setOpenQuizCodeModal}
+        modalRef={quizCodeModalRef}
+      />
     </div>
   );
 }
+
+const QuizRow = ({ quiz }: { quiz: Quiz }) => {
+  return (
+    <tr>
+      <td className="py-2 px-4 border border-[#00000033] rounded-s">
+        <p className="flex justify-center"> {quiz.title}</p>
+      </td>
+      <td className="py-2 px-4 border border-[#00000033]">
+        <p className="flex justify-center">{quiz.code || "N/A"}</p>
+      </td>
+      <td className="py-2 px-4 border border-[#00000033] ">
+        <div className="flex justify-center">
+          <p className="bg-red-300 text-red-600 rounded-lg flex justify-center  p-1 w-20">
+            {quiz.status}
+          </p>
+        </div>
+      </td>
+      <td className="py-2 px-4 border border-[#00000033]">
+        <p className="flex justify-center">{convertDate(quiz.updatedAt)}</p>
+      </td>
+    </tr>
+  );
+};
+
+const SkeletonRow = () => {
+  return (
+    <td>
+      <Skeleton width={150} />
+      <Skeleton width={150} />
+      <Skeleton width={150} />
+    </td>
+  );
+};
