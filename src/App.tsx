@@ -17,6 +17,7 @@ import QuestionsList from "./Pages/MasterPages/QuestionsList/QuestionsList";
 import Result from "./Pages/MasterPages/Results/Results";
 import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 import StudententsList from "./Pages/MasterPages/StudententsList/StudententsList";
+import ProtectedRoute from "./Components/Common/ProtectedRoute/ProtectedRoute";
 
 function App() {
   const routes = createBrowserRouter([
@@ -34,7 +35,11 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
