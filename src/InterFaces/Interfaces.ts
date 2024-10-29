@@ -131,7 +131,7 @@ export interface QuizRequest {
   duration: string;
   score_per_question: string;
 }
-interface QuizResult {
+ interface QuizResult {
   _id: string;
   code: string;
   title: string;
@@ -150,7 +150,7 @@ interface QuizResult {
   closed_at?: string; // Optional field for closed quizzes
 }
 
-interface Participant {
+export interface Participant {
   _id: string;
   quiz: {
     _id: string;

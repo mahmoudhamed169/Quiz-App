@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import TableSkeleton from "../QuestionsList/TableSkeleton";
 import Pagination from "../QuestionsList/Pagination";
 import { convertDate } from "../Quizzes/Quizzes";
+import { useNavigate } from "react-router-dom";
 
 export default function Results() {
   const [results, setResults] = useState<ResultResponse[]>([]);
@@ -16,6 +17,14 @@ export default function Results() {
   const [itemPerPage] = useState<number>(8);
   const [paginatedResults, setPaginatedResult] = useState<ResultResponse[]>([]);
 
+
+  const navigate = useNavigate()
+
+  const handelNavigateToQuizeResult = (result:ResultResponse)=>{
+    navigate('/dashboard/quize-result',{
+      state:{result}
+    })
+  }
   const getResults = async () => {
     setLoading(true);
     try {
@@ -32,6 +41,7 @@ export default function Results() {
     }
   };
 
+  
   useEffect(() => {
     getResults();
   }, []);
@@ -107,7 +117,7 @@ export default function Results() {
                       {res.quiz?.score_per_question || "N/A"}
                     </td>
                     <td className="py-2 px-4 border border-[#00000033]">
-                      <button className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
+                      <button onClick={()=>{handelNavigateToQuizeResult(res)}} className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
                         View
                       </button>
                     </td>
