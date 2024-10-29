@@ -20,7 +20,6 @@ export default function TopFiveStudents() {
       const response = await apiClient.get<Student>("/student/top-five");
       //   console.log(response.data);
       setStudent(response.data);
-      console.log(studenet);
     } catch (error) {
       const axiosError = error as AxiosError<{ message: string }>;
       toast.error(axiosError.response?.data?.message || "An error occurred");
@@ -34,12 +33,12 @@ export default function TopFiveStudents() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-4 lg:min-h-[607px]">
+      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px]   lg:min-h-[607px]">
         {!loading ? (
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-medium">Top 5 Students </h6>
             <Link
-              to={"/dashboard/home"}
+              to={"/dashboard/Students"}
               className="flex gap-1 items-center font-normal text-xs"
             >
               All Students
@@ -55,7 +54,7 @@ export default function TopFiveStudents() {
 
         <>
           {loading
-            ? arr.map((item, index) => <StudentCardSkeleton />)
+            ? arr.map((item, index) => <StudentCardSkeleton key={index} />)
             : studenet &&
               studenet.map((student, index) => (
                 <StudentCard student={student} index={index} key={index} />

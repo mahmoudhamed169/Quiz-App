@@ -14,3 +14,7 @@
     animation: spin 1s linear infinite;
 
 }
+
+.ps-sidebar-container {
+    background-color: #ffff !important;
+}

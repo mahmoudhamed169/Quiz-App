@@ -11,7 +11,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import QuizCardSkeleton from "../QuizCard/QuizCardSkeleton";
 
-export default function UpcomingQuiz() {
+export default function UpcomingQuiz({ minHeight }: { minHeight: string }) {
   const [quizes, setQuizes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const arr = [1, 2, 3, 4];
@@ -36,12 +36,15 @@ export default function UpcomingQuiz() {
 
   return (
     <>
-      <div className="w-full  p-3 border-[1px]  border-gray-300 rounded-[10px] m-4 min-h-[607px]">
+      <div
+        className={`w-full  p-3 border-[1px]  border-gray-300 rounded-[10px]  `}
+        style={{ minHeight }}
+      >
         {!loading ? (
           <div className="flex justify-between items-center">
             <h6 className="text-xl font-bold">Upcoming 5 quizzes</h6>
             <Link
-              to={"/dashboard/home"}
+              to={"/dashboard/Quizzes"}
               className="flex gap-1 items-center font-normal text-xs"
             >
               Quiz directory{" "}

@@ -44,7 +44,6 @@ export default function Register() {
         AUTHENTICATION_URLS.regitser,
         data
       );
-      console.log(response);
 
       toast.success("Register Successfully", {
         id: toastId,

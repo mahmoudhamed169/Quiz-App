@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 export default function AuthPagesTitles() {
   const location = useLocation();
-  console.log(location);
   const { pathname } = location;
 
   useEffect(() => {
