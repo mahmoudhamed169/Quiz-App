@@ -1,9 +1,10 @@
-import { CircleArrowRight } from "lucide-react";
+import { ArrowRight, CircleArrowRight } from "lucide-react";
 
 import { Link } from "react-router-dom";
 import quizz1 from "../../../assets/quizz1.png";
 import quizz2 from "../../../assets/quizz2.png";
 import { Quiz } from "../../../InterFaces/Interfaces";
+import { useState } from "react";
 
 interface IProps {
   quiz: Quiz;
@@ -11,6 +12,10 @@ interface IProps {
 }
 
 export default function QuizCard({ quiz, index }: IProps) {
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("loginInfo") || "{}")
+  );
+  const { role } = userInfo;
 
   function formatDateTime(dateString: string) {
     const date = new Date(dateString);
@@ -46,21 +51,29 @@ export default function QuizCard({ quiz, index }: IProps) {
             <p className="font-normal text-xs">
               {formatDateTime(quiz.schadule)}
             </p>
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-4 relative">
               <h6 className="text-sm font-bold ">
                 No. of Questions: {quiz.questions_number}
               </h6>
-              <Link
-                to={"/dashboard/home"}
-                className="flex gap-1 items-center font-normal text-xs"
-              >
-                Quiz directory{" "}
-                <CircleArrowRight
-                  color="#C5D86D"
-                  height={"30px"}
-                  width={"18.31px"}
-                />
-              </Link>
+              {role === "Instructor" && (
+                <Link
+                  to={"/dashboard/home"}
+                  className="flex gap-2 items-center font-normal text-xs"
+                >
+                  <p className="font-bold text-[14px]"> Open</p>
+                  <CircleArrowRight
+                    color="#C5D86D"
+                    height={"30px"}
+                    width={"18.31px"}
+                  />
+                </Link>
+              )}
+              {role === "Instructor" || (
+                <button className="flex text-[white] scale-90 hover:scale-100 transition-all duration-75  px-3 h-10 text-md rounded-full gap-1 items-center justify-center font-normal text-xs bg-[#C5D86D] absolute right-4 bottom-5">
+                  <p className=" font-bold text-base"> Join</p>
+                  <ArrowRight size={15} />
+                </button>
+              )}
             </div>
           </div>
         </div>
