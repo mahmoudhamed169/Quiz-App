@@ -38,10 +38,15 @@ export default function Login() {
         AUTHENTICATION_URLS.login,
         data
       );
-      const { accessToken } = response.data.data;
+      console.log(response.data.data);
+      const { accessToken, profile } = response.data.data;
 
       localStorage.setItem("userToken", accessToken);
-      navigate("/dashboard");
+      if (profile.role === "Instructor") {
+        navigate("/dashboard");
+      } else {
+        navigate("/student");
+      }
 
       dispatch(setUserInfo(response.data.data.profile));
       localStorage.setItem(
@@ -105,7 +110,8 @@ export default function Login() {
               Forgot password?{" "}
               <Link
                 to={"/forget-password"}
-                className="text-[#C5D86D] underline">
+                className="text-[#C5D86D] underline"
+              >
                 click here
               </Link>
             </p>
