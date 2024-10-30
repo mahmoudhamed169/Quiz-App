@@ -12,8 +12,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       <div className="flex flex-col gap-2 mb-3 w-full">
         <label
           htmlFor={props.id}
-          className="block  text-[#ffff] ms-6 font-bold text-lg"
-        >
+          className="block  text-[#ffff] ms-6 font-bold text-lg">
           {label}
         </label>
         <div className="relative ">
