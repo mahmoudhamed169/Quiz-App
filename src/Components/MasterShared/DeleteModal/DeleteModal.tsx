@@ -12,6 +12,7 @@ export function DeleteModal({
   openModal,
   setOpenModal,
   modalRef,
+  loading,
 }: DeleteModalType) {
   console.log(openModal);
   return (
@@ -28,7 +29,7 @@ export function DeleteModal({
               {`Are you sure you want to delete this ${title}?`}
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={onConfirm}>
+              <Button disabled={loading} color="failure" onClick={onConfirm}>
                 {"Yes, I'm sure"}
               </Button>
               <Button color="gray" onClick={() => setOpenModal(false)}>

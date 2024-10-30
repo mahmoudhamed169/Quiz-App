@@ -19,6 +19,7 @@ import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 import StudententsList from "./Pages/MasterPages/StudententsList/StudententsList";
 import ProtectedRoute from "./Components/Common/ProtectedRoute/ProtectedRoute";
 import QuizeResult from "./Pages/MasterPages/Results/QuizeResult";
+import QuizData from "./Pages/MasterPages/Quizzes/QuizData";
 
 function App() {
   const routes = createBrowserRouter([
@@ -50,7 +51,7 @@ function App() {
         { path: "results", element: <Result /> },
         { path: "quize-result", element: <QuizeResult /> },
         { path: "quizzes", element: <Quizzes /> },
-
+        { path: "quiz-data/:id", element: <QuizData /> },
         { path: "students", element: <StudententsList /> },
       ],
     },

@@ -55,25 +55,17 @@ export default function QuizCard({ quiz, index }: IProps) {
               <h6 className="text-sm font-bold ">
                 No. of Questions: {quiz.questions_number}
               </h6>
-              {role === "Instructor" && (
-                <Link
-                  to={"/dashboard/home"}
-                  className="flex gap-2 items-center font-normal text-xs"
-                >
-                  <p className="font-bold text-[14px]"> Open</p>
-                  <CircleArrowRight
-                    color="#C5D86D"
-                    height={"30px"}
-                    width={"18.31px"}
-                  />
-                </Link>
-              )}
-              {role === "Instructor" || (
-                <button className="flex text-[white] scale-90 hover:scale-100 transition-all duration-75  px-3 h-10 text-md rounded-full gap-1 items-center justify-center font-normal text-xs bg-[#C5D86D] absolute right-4 bottom-5">
-                  <p className=" font-bold text-base"> Join</p>
-                  <ArrowRight size={15} />
-                </button>
-              )}
+              <Link
+                to={`/dashboard/quiz-data/${quiz._id}`}
+                state={quiz}
+                className="flex gap-1 items-center font-normal text-xs">
+                Quiz directory{" "}
+                <CircleArrowRight
+                  color="#C5D86D"
+                  height={"30px"}
+                  width={"18.31px"}
+                />
+              </Link>
             </div>
           </div>
         </div>
