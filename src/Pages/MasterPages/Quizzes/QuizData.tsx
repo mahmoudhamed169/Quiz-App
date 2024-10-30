@@ -195,7 +195,7 @@ const CustomTextInput = ({
           type="text"
           value={value}
           readOnly
-          className={`w-full bg-transparent pl-[15rem] placeholder:text-slate-400 text-slate-700 text-lg border border-slate-400 rounded-md pr-3 pl-[5rem] py-2 focus:border-[#C5D86D] focus:outline-none focus:ring-1 focus:ring-[#C5D86D]`}
+          className={`w-full bg-transparent pl-[15rem] placeholder:text-slate-400 text-slate-700 text-lg border border-slate-400 rounded-md pr-3 py-2 focus:border-[#C5D86D] focus:outline-none focus:ring-1 focus:ring-[#C5D86D]`}
           placeholder="Enter Quiz Title"
         />
         <label className="font-extrabold absolute left-2 top-[0.5rem] text-black bg-[#FFEDDF] py-1 px-3 rounded-lg">
