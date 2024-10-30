@@ -33,13 +33,15 @@ const SideBar = () => {
         style={{
           transition: "all .7s ease-in-out",
         }}
-        className="h-screen bg-[#fff]">
+        className="h-screen bg-[#fff]"
+      >
         <Menu>
           <MenuItem
             style={{ height: "75px" }}
             className="border-b  pb-1 be-2  "
             onClick={handleToggle}
-            icon={<MenuIcon />}>
+            icon={<MenuIcon />}
+          >
             <p className="text-[19px] group-hover:tracking-wide font-bold ">
               <BlackLogo />
             </p>
@@ -76,6 +78,16 @@ const CustomMenuItem = ({
   title: string;
   icon: ReactNode;
 }) => {
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("loginInfo") || "{}")
+  );
+  const { role } = userInfo;
+  let path;
+  if (role === "Instructor") {
+    path = "dashboard";
+  } else {
+    path = "student";
+  }
   const { pathname } = useLocation();
   const pageTitle = (value: string) => {
     const arrayFromPath = pathname.split("/");
@@ -92,15 +104,15 @@ const CustomMenuItem = ({
         <i
           className={`mr-6 ${
             pageTitle(title) && "bg-black text-white"
-          } group-hover:scale-75    group-hover:bg-black    duration-500 transition     group-hover:text-white  bg-[rgba(255,_237,_223,_1)] p-[.8rem] rounded-[10px]  `}>
+          } group-hover:scale-75    group-hover:bg-black    duration-500 transition     group-hover:text-white  bg-[rgba(255,_237,_223,_1)] p-[.8rem] rounded-[10px]  `}
+        >
           {icon}
         </i>
       }
       component={
-        <Link
-          to={title === "dashboard" ? `/dashboard` : `/dashboard/${title}`}
-        />
-      }>
+        <Link to={title === path ? `/${path}` : `/${path}/${title}`} />
+      }
+    >
       <p className={`text-[19px] group-hover:tracking-wide font-bold`}>
         {title}
       </p>

@@ -20,6 +20,9 @@ import StudententsList from "./Pages/MasterPages/StudententsList/StudententsList
 import ProtectedRoute from "./Components/Common/ProtectedRoute/ProtectedRoute";
 import QuizeResult from "./Pages/MasterPages/Results/QuizeResult";
 import QuizData from "./Pages/MasterPages/Quizzes/QuizData";
+import StudentLayout from "./Layouts/StudentLayout/StudentLayout";
+import QuizesStudent from "./Pages/SrudentPages/Quizes/QuizesStudent";
+import ResultsStudent from "./Pages/SrudentPages/Results/ResultsStudent";
 
 function App() {
   const routes = createBrowserRouter([
@@ -57,9 +60,13 @@ function App() {
     },
     {
       path: "student",
-      element: <UserLayout />,
+      element: <StudentLayout />,
       errorElement: <NotFound />,
-      children: [{}],
+      children: [
+        { index: true, element: <QuizesStudent /> },
+        { path: "quizzes", element: <QuizesStudent /> },
+        { path: "results", element: <ResultsStudent /> },
+      ],
     },
   ]);
   return (
