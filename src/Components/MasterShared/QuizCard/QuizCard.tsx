@@ -11,7 +11,6 @@ interface IProps {
 }
 
 export default function QuizCard({ quiz, index }: IProps) {
-
   function formatDateTime(dateString: string) {
     const date = new Date(dateString);
 
@@ -51,9 +50,9 @@ export default function QuizCard({ quiz, index }: IProps) {
                 No. of Questions: {quiz.questions_number}
               </h6>
               <Link
-                to={"/dashboard/home"}
-                className="flex gap-1 items-center font-normal text-xs"
-              >
+                to={`/dashboard/quiz-data/${quiz._id}`}
+                state={quiz}
+                className="flex gap-1 items-center font-normal text-xs">
                 Quiz directory{" "}
                 <CircleArrowRight
                   color="#C5D86D"

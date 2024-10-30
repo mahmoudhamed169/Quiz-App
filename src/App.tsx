@@ -17,6 +17,7 @@ import QuestionsList from "./Pages/MasterPages/QuestionsList/QuestionsList";
 import Result from "./Pages/MasterPages/Results/Results";
 import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 import StudententsList from "./Pages/MasterPages/StudententsList/StudententsList";
+import QuizData from "./Pages/MasterPages/Quizzes/QuizData";
 
 function App() {
   const routes = createBrowserRouter([
@@ -43,7 +44,7 @@ function App() {
         { path: "questions", element: <QuestionsList /> },
         { path: "results", element: <Result /> },
         { path: "quizzes", element: <Quizzes /> },
-
+        { path: "quiz-data/:id", element: <QuizData /> },
         { path: "students", element: <StudententsList /> },
       ],
     },

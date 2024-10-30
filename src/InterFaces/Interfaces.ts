@@ -94,7 +94,16 @@ export interface Quiz {
 export interface DeleteModalType {
   setOpenModal: (value: boolean) => void;
   openModal: boolean;
+  loading: boolean;
   onConfirm: () => void;
+  title: string;
+  modalRef: RefObject<HTMLDivElement>;
+}
+export interface UpdateModalType {
+  setOpenModal: (value: boolean) => void;
+  openModal: boolean;
+  loading: boolean;
+  onConfirm: (value: string) => void;
   title: string;
   modalRef: RefObject<HTMLDivElement>;
 }
