@@ -17,6 +17,8 @@ import QuestionsList from "./Pages/MasterPages/QuestionsList/QuestionsList";
 import Result from "./Pages/MasterPages/Results/Results";
 import Quizzes from "./Pages/MasterPages/Quizzes/Quizzes";
 import StudententsList from "./Pages/MasterPages/StudententsList/StudententsList";
+import ProtectedRoute from "./Components/Common/ProtectedRoute/ProtectedRoute";
+import QuizeResult from "./Pages/MasterPages/Results/QuizeResult";
 import QuizData from "./Pages/MasterPages/Quizzes/QuizData";
 
 function App() {
@@ -35,7 +37,11 @@ function App() {
     },
     {
       path: "dashboard",
-      element: <MasterLayout />,
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
@@ -43,6 +49,7 @@ function App() {
         { path: "groups", element: <GroupsList /> },
         { path: "questions", element: <QuestionsList /> },
         { path: "results", element: <Result /> },
+        { path: "quize-result", element: <QuizeResult /> },
         { path: "quizzes", element: <Quizzes /> },
         { path: "quiz-data/:id", element: <QuizData /> },
         { path: "students", element: <StudententsList /> },

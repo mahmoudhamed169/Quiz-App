@@ -1,9 +1,10 @@
-import { CircleArrowRight } from "lucide-react";
+import { ArrowRight, CircleArrowRight } from "lucide-react";
 
 import { Link } from "react-router-dom";
 import quizz1 from "../../../assets/quizz1.png";
 import quizz2 from "../../../assets/quizz2.png";
 import { Quiz } from "../../../InterFaces/Interfaces";
+import { useState } from "react";
 
 interface IProps {
   quiz: Quiz;
@@ -11,6 +12,11 @@ interface IProps {
 }
 
 export default function QuizCard({ quiz, index }: IProps) {
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("loginInfo") || "{}")
+  );
+  const { role } = userInfo;
+
   function formatDateTime(dateString: string) {
     const date = new Date(dateString);
 
@@ -45,7 +51,7 @@ export default function QuizCard({ quiz, index }: IProps) {
             <p className="font-normal text-xs">
               {formatDateTime(quiz.schadule)}
             </p>
-            <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center justify-between mt-4 relative">
               <h6 className="text-sm font-bold ">
                 No. of Questions: {quiz.questions_number}
               </h6>
