@@ -8,7 +8,7 @@ export default function MasterLayout() {
   return (
     <>
       <div className="flex w-full">
-        <div className=" bg-[#ffff] ">
+        <div className=" bg-[#ffff] sticky bottom-0 top-0 h-screen ">
           <SideBar />
         </div>
         <div className="w-full ">
