@@ -16,15 +16,15 @@ export default function Results() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemPerPage] = useState<number>(8);
   const [paginatedResults, setPaginatedResult] = useState<ResultResponse[]>([]);
+  const userInfo = JSON.parse(localStorage.getItem("loginInfo") || "{}");
 
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const handelNavigateToQuizeResult = (result:ResultResponse)=>{
-    navigate('/dashboard/quize-result',{
-      state:{result}
-    })
-  }
+  const handelNavigateToQuizeResult = (result: ResultResponse) => {
+    navigate("/dashboard/quize-result", {
+      state: { result },
+    });
+  };
   const getResults = async () => {
     setLoading(true);
     try {
@@ -41,7 +41,6 @@ export default function Results() {
     }
   };
 
-  
   useEffect(() => {
     getResults();
   }, []);
@@ -68,7 +67,7 @@ export default function Results() {
             Completed Quizzes
           </h3>
           {loading ? (
-            <TableSkeleton addition={true}/>
+            <TableSkeleton addition={true} />
           ) : results.length === 0 ? (
             <p>No results found.</p>
           ) : (
@@ -89,11 +88,15 @@ export default function Results() {
                     Closed At
                   </th>
                   <th className="bg-[#0D1321] font-normal py-2 text-base px-4">
-                   Score per ques
+                    Score per ques
                   </th>
-                  <th className="bg-[#0D1321] font-normal py-2 rounded-e text-base px-4">
-                    Actions
-                  </th>
+                  {userInfo.role === "Instructor" ? (
+                    <th className="bg-[#0D1321] font-normal py-2 rounded-e text-base px-4">
+                      Actions
+                    </th>
+                  ) : (
+                    ""
+                  )}
                 </tr>
               </thead>
               <tbody>
@@ -116,11 +119,19 @@ export default function Results() {
                     <td className="py-2 px-4 border text-center border-[#00000033]">
                       {res.quiz?.score_per_question || "N/A"}
                     </td>
-                    <td className="py-2 px-4 border border-[#00000033]">
-                      <button onClick={()=>{handelNavigateToQuizeResult(res)}} className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
-                        View
-                      </button>
-                    </td>
+                    {userInfo.role === "Instructor" ? (
+                      <td className="py-2 px-4 border border-[#00000033]">
+                        <button
+                          onClick={() => {
+                            handelNavigateToQuizeResult(res);
+                          }}
+                          className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
+                          View
+                        </button>
+                      </td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 ))}
               </tbody>
