@@ -140,7 +140,7 @@ export interface QuizRequest {
   duration: string;
   score_per_question: string;
 }
- interface QuizResult {
+interface QuizResult {
   _id: string;
   code: string;
   title: string;
@@ -179,4 +179,9 @@ export interface Participant {
 export interface ResultResponse {
   quiz: QuizResult;
   participants: Participant[];
+}
+
+export interface joinQuiz {
+  message: string;
+  timestamp: string;
 }

@@ -5,6 +5,7 @@ import quizz1 from "../../../assets/quizz1.png";
 import quizz2 from "../../../assets/quizz2.png";
 import { Quiz } from "../../../InterFaces/Interfaces";
 import { useState } from "react";
+import JoinQuizModel from "../../UserShared/JoinQuizModel/JoinQuizModel";
 
 interface IProps {
   quiz: Quiz;
@@ -12,6 +13,8 @@ interface IProps {
 }
 
 export default function QuizCard({ quiz, index }: IProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [userInfo, setUserInfo] = useState(
     JSON.parse(localStorage.getItem("loginInfo") || "{}")
   );
@@ -35,9 +38,11 @@ export default function QuizCard({ quiz, index }: IProps) {
 
     return `${formattedDate} ${formattedTime}`;
   }
-
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <>
+      <JoinQuizModel handelCloseModle={closeModal} openModal={isModalOpen} />
       <div className="w-full mt-5">
         <div className="flex h-[120px] border-[1px]  border-gray-300 rounded-[10px] ">
           <div className="w-[120px] h-full rounded-[10px]  bg-[#FFEDDF] flex-shrink-0 p-4">
@@ -60,7 +65,8 @@ export default function QuizCard({ quiz, index }: IProps) {
                 <Link
                   to={`/dashboard/quiz-data/${quiz._id}`}
                   state={quiz}
-                  className="flex gap-2 items-center font-normal text-xs">
+                  className="flex gap-2 items-center font-normal text-xs"
+                >
                   <p className="font-bold text-[14px]"> Open</p>
                   <CircleArrowRight
                     color="#C5D86D"
@@ -70,7 +76,10 @@ export default function QuizCard({ quiz, index }: IProps) {
                 </Link>
               )}
               {role === "Instructor" || (
-                <button className="flex text-[white] scale-90 hover:scale-100 transition-all duration-75  px-3 h-10 text-md rounded-full gap-1 items-center justify-center font-normal text-xs bg-[#C5D86D] absolute right-4 bottom-5">
+                <button
+                  onClick={openModal}
+                  className="flex text-[white] scale-90 hover:scale-100 transition-all duration-75  px-3 h-10 text-md rounded-full gap-1 items-center justify-center font-normal text-xs bg-[#C5D86D] absolute right-4 bottom-5"
+                >
                   <p className=" font-bold text-base"> Join</p>
                   <ArrowRight size={15} />
                 </button>
