@@ -46,50 +46,53 @@ export default function CompletedQuizzes() {
   }, [completedQuiz, currentPage]);
   return (
     <>
-      <table className="w-full mt-5 border-separate">
-        <thead className="text-[#ffff] text-left border ">
-          <tr>
-            {["Title", "Code", "Status", "Date"].map((heading, index) => (
-              <th
-                key={index}
-                className={`bg-[#0D1321] font-normal py-2 text-xs ${
-                  index === 0 ? "rounded-s" : ""
-                }  px-4 `}>
-                <p className="flex justify-center">{heading}</p>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
+      <div className="flex flex-col w-full">
+        <table className="w-full mt-5 border-separate">
+          <thead className="text-[#ffff] text-left border ">
             <tr>
-              {Array(4)
-                .fill(null)
-                .map(() => (
-                  <SkeletonRow />
-                ))}
+              {["Title", "Code", "Status", "Date"].map((heading, index) => (
+                <th
+                  key={index}
+                  className={`bg-[#0D1321] font-normal py-2 text-xs ${
+                    index === 0 ? "rounded-s" : ""
+                  }  px-4 `}
+                >
+                  <p className="flex justify-center">{heading}</p>
+                </th>
+              ))}
             </tr>
-          ) : paginatedQuizzes.length > 0 ? (
-            paginatedQuizzes.map((quiz, index) => (
-              <QuizRow quiz={quiz} key={index} />
-            ))
-          ) : (
-            <tr>
-              <td colSpan={4} className="text-center">
-                No completed quizzes available.
-              </td>
-            </tr>
-          )}
-          {}
-        </tbody>
-      </table>
-      <div className="flex justify-center mt-7">
-        <Pagination
-          totalCount={totalCount}
-          setCurrentPage={setCurrentPage}
-          itemPerPage={itemPerPage}
-          currentPage={currentPage}
-        />
+          </thead>
+          <tbody>
+            {loading ? (
+              <tr>
+                {Array(4)
+                  .fill(null)
+                  .map(() => (
+                    <SkeletonRow />
+                  ))}
+              </tr>
+            ) : paginatedQuizzes.length > 0 ? (
+              paginatedQuizzes.map((quiz, index) => (
+                <QuizRow quiz={quiz} key={index} />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center">
+                  No completed quizzes available.
+                </td>
+              </tr>
+            )}
+            {}
+          </tbody>
+        </table>
+        <div className="flex justify-center mt-7">
+          <Pagination
+            totalCount={totalCount}
+            setCurrentPage={setCurrentPage}
+            itemPerPage={itemPerPage}
+            currentPage={currentPage}
+          />
+        </div>
       </div>
     </>
   );
