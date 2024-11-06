@@ -90,13 +90,10 @@ export default function Results() {
                   <th className="bg-[#0D1321] font-normal py-2 text-base px-4">
                     Score per ques
                   </th>
-                  {userInfo.role === "Instructor" ? (
-                    <th className="bg-[#0D1321] font-normal py-2 rounded-e text-base px-4">
-                      Actions
-                    </th>
-                  ) : (
-                    ""
-                  )}
+
+                  <th className="bg-[#0D1321] font-normal py-2 rounded-e text-base px-4">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -119,19 +116,16 @@ export default function Results() {
                     <td className="py-2 px-4 border text-center border-[#00000033]">
                       {res.quiz?.score_per_question || "N/A"}
                     </td>
-                    {userInfo.role === "Instructor" ? (
-                      <td className="py-2 px-4 border border-[#00000033]">
-                        <button
-                          onClick={() => {
-                            handelNavigateToQuizeResult(res);
-                          }}
-                          className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
-                          View
-                        </button>
-                      </td>
-                    ) : (
-                      ""
-                    )}
+
+                    <td className="py-2 px-4 border border-[#00000033]">
+                      <button
+                        onClick={() => {
+                          handelNavigateToQuizeResult(res);
+                        }}
+                        className="bg-[#C5D86D] w-[85px] h-[30px] rounded-xl font-bold text-lg">
+                        View
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
